@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ChoreManager.iml" filepath="$PROJECT_DIR$/ChoreManager.iml" />
-      <module fileurl="file://C:\Users\susin\OneDrive\Documents\GitHub\BarcelonaFinalApp\ChoreManager\ChoreManager.iml" filepath="C:\Users\susin\OneDrive\Documents\GitHub\BarcelonaFinalApp\ChoreManager\ChoreManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\susin\OneDrive\Documents\GitHub\BarcelonaFinalApp\ChoreManager\app\app.iml" filepath="C:\Users\susin\OneDrive\Documents\GitHub\BarcelonaFinalApp\ChoreManager\app\app.iml" />
     </modules>
   </component>
 </project>
