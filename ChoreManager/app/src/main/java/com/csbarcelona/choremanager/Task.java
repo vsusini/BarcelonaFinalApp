@@ -1,4 +1,4 @@
-package com.example.josh.tasklistui;
+package com.csbarcelona.choremanager;
 
 /**
  * Created by Josh on 2017-11-28.

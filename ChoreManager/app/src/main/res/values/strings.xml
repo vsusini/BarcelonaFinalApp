@@ -1,5 +1,4 @@
 <resources>
-<<<<<<< HEAD
     <string name="app_name">Chore Manager</string>
     <string name="Task_Name">Task Name</string>
     <string name="Task_Group">Task Group</string>
@@ -14,9 +13,7 @@
     <string name="RESOURCES">RESOURCES</string>
     <string name="Complete">Complete</string>
     <string name="REPEAT">REPEAT</string>
-=======
-    <string name="app_name">My Application</string>
+    <string name="chore1">chore1</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_chore_list">ChoreList</string>
->>>>>>> aed7fd7dac60ef9a55be157f119e59c6ac2ee14c
 </resources>

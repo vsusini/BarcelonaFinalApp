@@ -16,15 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity android:name=".NewTask" />
         <activity android:name=".EditTask"></activity>
-=======
         <activity
             android:name=".ChoreList"
             android:label="@string/title_activity_chore_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
->>>>>>> aed7fd7dac60ef9a55be157f119e59c6ac2ee14c
     </application>
 
 </manifest>

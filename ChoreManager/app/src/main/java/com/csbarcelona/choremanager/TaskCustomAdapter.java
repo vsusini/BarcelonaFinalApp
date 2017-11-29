@@ -1,4 +1,4 @@
-package com.example.josh.tasklistui;
+package com.csbarcelona.choremanager;
 
 import android.content.Context;
 import android.view.LayoutInflater;

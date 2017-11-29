@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "151789817845",
+    "firebase_url": "https://choremanager-7b4d9.firebaseio.com",
+    "project_id": "choremanager-7b4d9",
+    "storage_bucket": "choremanager-7b4d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151789817845:android:37b2ffba6b7fd38b",
+        "android_client_info": {
+          "package_name": "com.csbarcelona.choremanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151789817845-s51s8gmv17hvidnsr0nosdulul8uif01.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.csbarcelona.choremanager",
+            "certificate_hash": "83e4b8b64b3f0e5b8f7854a6eb938d90e646027e"
+          }
+        },
+        {
+          "client_id": "151789817845-pn6jc0b6i199q20fre9vs2va2metgolq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA95mN0v7kUkXcZUBDSn-qQ333FVij-p_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151789817845-pn6jc0b6i199q20fre9vs2va2metgolq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
