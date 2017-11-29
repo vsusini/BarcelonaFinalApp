@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Chore Manager</string>
+    <string name="Task_Name">Task Name</string>
+    <string name="Task_Group">Task Group</string>
+    <string name="Task_Points">Task Point(s)</string>
+    <string name="Points">Point(s)</string>
+    <string name="Task_Point">Task Point</string>
+    <string name="Estimated_Duration">Estimated Duration</string>
+    <string name="Description">Description</string>
+    <string name="ASSIGNED_USERS">ASSIGNED USERS</string>
+    <string name="DUE_DATE">DUE DATE</string>
+    <string name="None">None</string>
+    <string name="RESOURCES">RESOURCES</string>
+    <string name="Complete">Complete</string>
+    <string name="REPEAT">REPEAT</string>
 </resources>
