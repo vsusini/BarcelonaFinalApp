@@ -17,6 +17,8 @@ public class NewTask extends AppCompatActivity {
 
     DatabaseReference dR;
     final int numberOfUsers = 4;
+    final int numberOfResources = 6;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
@@ -33,6 +35,9 @@ public class NewTask extends AppCompatActivity {
 
                 EditText txtDescription = (EditText) findViewById(R.id.description);
                 String description = txtDescription.getText().toString().trim();
+
+                EditText txtGroup = (EditText) findViewById(R.id.taskGroup);
+                String group = txtGroup.getText().toString().trim();
 
                 int duration,points;
 
@@ -52,28 +57,47 @@ public class NewTask extends AppCompatActivity {
                 CheckBox[] chkAssignee = {(CheckBox)findViewById(R.id.chkAss1),(CheckBox)findViewById(R.id.chkAss2),(CheckBox)findViewById(R.id.chkAss3),(CheckBox)findViewById(R.id.chkAss4)};
 
                 for(int i = 0; i< numberOfUsers; i++){
-                    if(i != numberOfUsers){
-                        assignees += chkAssignee[i].getText().toString().trim() + ",";
-                    }else{
-                        assignees += chkAssignee[i].getText().toString().trim();
-                    }
 
+                        if(chkAssignee[i].isChecked()){
+                            if(i != numberOfUsers){
+                                assignees += chkAssignee[i].getText().toString().trim() + ",";
+                            }else{
+                                assignees += chkAssignee[i].getText().toString().trim();
+                            }
+
+                        }
                 }
+
+                String resources = "";
+                CheckBox[] chkRes = {(CheckBox)findViewById(R.id.chkRes1),(CheckBox)findViewById(R.id.chkRes2),(CheckBox)findViewById(R.id.chkRes3),(CheckBox)findViewById(R.id.chkRes4),(CheckBox)findViewById(R.id.chkRes5),(CheckBox)findViewById(R.id.chkRes6)};
+
+                for(int i = 0; i < numberOfResources; i++){
+
+                    if(chkRes[i].isChecked()){
+                        if(i != numberOfResources){
+                            resources += chkRes[i].getText().toString().trim() + ",";
+                        }else{
+                            resources += chkRes[i].getText().toString().trim();
+                        }
+
+                    }
+                }
+
 
                 //Check if right fields are filled out
 
-                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && duration > 0 && points > 0){
+                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assignees) && !TextUtils.isEmpty(group)&& duration > 0 && points > 0){
                     //Get unique ID using push().getKey()
                     String id = dR.push().getKey();
 
                     //Create Task
-                    Task task = new Task(id, assignees,description, duration, name, points);
+                    Task task = new Task(id, assignees,resources,description, duration, name, points, group);
 
                     dR.child(id).setValue(task);
 
                     Toast.makeText(getApplicationContext(), "Task Added", Toast.LENGTH_LONG).show();
 
-                    Intent taskIntent = new Intent(getApplicationContext(), NewTask.class);
+                    Intent taskIntent = new Intent(getApplicationContext(), TaskList.class);
                     startActivity(taskIntent);
                 }else{
                     Toast.makeText(getApplicationContext(), "Please fill all out fields properly!", Toast.LENGTH_LONG).show();
