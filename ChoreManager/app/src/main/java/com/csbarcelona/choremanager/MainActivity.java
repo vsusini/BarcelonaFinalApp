@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(MainActivity.this, "Password or Email are Empty", Toast.LENGTH_LONG).show();
         } else {
-            //Checking if the login was successful or not.
+            //Trying to login and adding a listner to see if its successful or not.
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull com.google.android.gms.tasks.Task<AuthResult> task) {
