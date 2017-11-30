@@ -17,10 +17,12 @@ import java.util.*;
 public class TaskList extends AppCompatActivity {
     String[] taskNames, taskDescription;
     private List<Task> taskList = new ArrayList<Task>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
+        Button btnAdd = (Button) findViewById(R.id.btnAddTask);
 
         final DatabaseReference databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
 
@@ -61,8 +63,6 @@ public class TaskList extends AppCompatActivity {
             }
         });
     }
-
-    //Button btnAdd = (Button) findViewById(R.id.btnAddTask);
 
 
 
