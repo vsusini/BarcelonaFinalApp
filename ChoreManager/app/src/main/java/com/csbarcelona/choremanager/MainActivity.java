@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         //Setting email and password into proper strings.
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
-        if (email.equals("parent@gmail.com") && password.equals("password")){
+        /*For Testing Purposes if (email.equals("parent@gmail.com") && password.equals("password")){
             Toast.makeText(MainActivity.this, "Working", Toast.LENGTH_LONG).show();
-        }
+        } */
         //Checking if the username or password is empty to avoid errors
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(MainActivity.this, "Password or Email are Empty", Toast.LENGTH_LONG).show();
@@ -73,15 +73,15 @@ public class MainActivity extends AppCompatActivity {
 
                     if (!task.isSuccessful()) {
                         //If Login is unsucessful, the following is ran.
-                        System.out.println(task.getException().getMessage());
+                        //Below is for testing to understand the error.
+                        //For Testing Purposes System.out.println(task.getException().getMessage());
                         Toast.makeText(MainActivity.this, "Sign In Unsucessful, Please try Again!", Toast.LENGTH_LONG).show();
                     }else{
                         //If successful login, then should change pages.
-                        Toast.makeText(MainActivity.this, "SHOULD MOVE PAGE GOOD WORK", Toast.LENGTH_LONG).show();
-                        //(new Intent(MainActivity.this, /*new Task View*/activity_task_list.claparent@gmail.comss));
+                        Toast.makeText(MainActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
+                        //Change page below.
                         Intent taskIntent = new Intent(MainActivity.this, TaskList.class);
                         startActivity(taskIntent);
-                        //How to get the user. FirebaseUser user = mAuth.getCurrentUser();
                     }
                 }
             });
