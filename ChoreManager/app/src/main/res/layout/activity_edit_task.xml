@@ -7,11 +7,8 @@
     tools:context="com.csbarcelona.choremanager.EditTask">
 
     <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/mainLayout"
@@ -113,6 +110,13 @@
                     android:ems="10"
                     android:hint="@string/Estimated_Duration"
                     android:inputType="text" />
+
+                <Spinner
+                    android:id="@+id/duration_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/duration_array"/>
 
             </LinearLayout>
 
@@ -223,14 +227,13 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/editText2"
+                    <Button
+                        android:id="@+id/button4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textAlignment="center" />
+                        android:text="@string/None"
+                        android:onClick="showDatePickerDialog"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -253,14 +256,12 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/editText"
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/recurring_spinner"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textAlignment="center" />
+                        android:entries="@array/recurring_array"/>
                 </LinearLayout>
 
                 <LinearLayout

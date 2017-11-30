@@ -1,6 +1,7 @@
 package com.csbarcelona.choremanager;
 
 
+import android.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -106,5 +107,9 @@ public class NewTask extends AppCompatActivity {
         });
     }
 
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
 
 }

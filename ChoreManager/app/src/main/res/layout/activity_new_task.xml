@@ -6,316 +6,348 @@
     android:layout_height="match_parent"
     tools:context="com.csbarcelona.choremanager.NewTask">
 
-    <LinearLayout
-        android:id="@+id/mainLayout"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/horizontalLayout13"
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="3">
-
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="86dp"
-                android:layout_weight="3"
-                app:srcCompat="@mipmap/ic_launcher_round" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/horizontalLayout01"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <AutoCompleteTextView
-                android:id="@+id/taskName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/Task_Name" />
-
-            <EditText
-                android:id="@+id/taskGroup"
-                android:layout_width="184dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/Task_Group"
-                android:inputType="textPersonName" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/horizontalLayout05"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/numChorePoints"
-                android:layout_width="0.5dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.49"
-                android:ems="10"
-                android:hint="@string/Task_Point"
-                android:inputType="number" />
-
-            <TextView
-                android:id="@+id/taskPoint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/Points" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/horizontalLayout04"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/estimatedDuration"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/Estimated_Duration"
-                android:inputType="text" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/horizontalLayout06"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="@string/Description"
-                android:inputType="textMultiLine" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/VerticalLayout02"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp">
 
             <LinearLayout
-                android:id="@+id/horizontalLayout07"
+                android:id="@+id/horizontalLayout13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="86dp"
+                    android:layout_weight="3"
+                    app:srcCompat="@mipmap/ic_launcher_round" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/horizontalLayout01"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView3"
+                <AutoCompleteTextView
+                    android:id="@+id/taskName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/ASSIGNED_USERS" />
-            </LinearLayout>
+                    android:hint="@string/Task_Name" />
 
-            <GridLayout
-                android:id="@+id/checkBoxGrid"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:columnCount="2"
-                android:orientation="vertical"
-                android:rowCount="2">
-
-                <!--- the names in the checkbox will have to be changed. right now they are hardcoded-->
-
-                <CheckBox
-                    android:id="@+id/chkAss1"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/taskGroup"
+                    android:layout_width="184dp"
                     android:layout_height="wrap_content"
-                    android:layout_column="0"
-                    android:layout_columnWeight="1"
-                    android:layout_row="0"
-                    android:text="Nancy"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/chkAss2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_columnWeight="1"
-                    android:layout_row="0"
-                    android:text="Bill"
-                    android:textSize="18sp" />
-
-
-                <CheckBox
-                    android:id="@+id/chkAss3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="0"
-                    android:layout_columnWeight="1"
-                    android:layout_row="1"
-                    android:text="Ryan"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/chkAss4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_columnWeight="1"
-                    android:layout_row="1"
-                    android:text="Ally"
-                    android:textSize="18sp" />
-            </GridLayout>
-
-            <LinearLayout
-                android:id="@+id/LinearLayout12"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/DUE_DATE" />
+                    android:ems="10"
+                    android:hint="@string/Task_Group"
+                    android:inputType="textPersonName" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/LinearLayout13"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/horizontalLayout05"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/numChorePoints"
+                    android:layout_width="0.5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.49"
+                    android:ems="10"
+                    android:hint="@string/Task_Point"
+                    android:inputType="number" />
+
+                <TextView
+                    android:id="@+id/taskPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Points" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/horizontalLayout04"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/estimatedDuration"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/Estimated_Duration" />
+
+                <Spinner
+                    android:id="@+id/duration_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/duration_array"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/horizontalLayout06"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/Description"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/VerticalLayout02"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/horizontalLayout07"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/ASSIGNED_USERS" />
+                </LinearLayout>
+
+                <GridLayout
+                    android:id="@+id/checkBoxGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:columnCount="2"
+                    android:orientation="vertical"
+                    android:rowCount="2">
+
+                    <!--- the names in the checkbox will have to be changed. right now they are hardcoded-->
+
+                    <CheckBox
+                        android:id="@+id/chkAss1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_row="0"
+                        android:text="Nancy"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/chkAss2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_row="0"
+                        android:text="Bill"
+                        android:textSize="18sp" />
+
+
+                    <CheckBox
+                        android:id="@+id/chkAss3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_row="1"
+                        android:text="Ryan"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/chkAss4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_row="1"
+                        android:text="Ally"
+                        android:textSize="18sp" />
+                </GridLayout>
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/DUE_DATE" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/None"
+                        android:onClick="showDatePickerDialog"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/horizontalLayout14"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/REPEAT" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/horizontalLayout15"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <Spinner
+                        android:id="@+id/recurring_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:entries="@array/recurring_array"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/horizontalLayout10"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/RESOURCES" />
+                </LinearLayout>
+
+                <GridLayout
+                    android:id="@+id/checkBoxGrid02"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:columnCount="3"
+                    android:orientation="vertical"
+                    android:rowCount="2">
+
+                    <!--- This is hardcoded the resource names will need to be changed -->
+
+                    <CheckBox
+                        android:id="@+id/chkRes1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_row="0"
+                        android:text="Mop"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/chkRes2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_row="0"
+                        android:text="Bucket"
+                        android:textSize="18sp" />
+
+
+                    <CheckBox
+                        android:id="@+id/chkRes4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_row="1"
+                        android:text="Sponge"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/chkRes5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_row="1"
+                        android:text="Soap"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/chkRes6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_columnWeight="1"
+                        android:layout_row="1"
+                        android:text="Broom"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/chkRes3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_columnWeight="1"
+                        android:layout_row="0"
+                        android:text="Dustpan"
+                        android:textSize="18sp" />
+
+                </GridLayout>
 
                 <Button
-                    android:id="@+id/button4"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btnComplete"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/None" />
+                    android:text="Complete" />
+
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/horizontalLayout14"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/horizontalLayout10"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/RESOURCES" />
-            </LinearLayout>
-
-            <GridLayout
-                android:id="@+id/checkBoxGrid02"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:columnCount="3"
-                android:orientation="vertical"
-                android:rowCount="2">
-
-                <!--- This is hardcoded the resource names will need to be changed -->
-
-                <CheckBox
-                    android:id="@+id/chkRes1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="0"
-                    android:layout_columnWeight="1"
-                    android:layout_row="0"
-                    android:text="Mop"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/chkRes2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_columnWeight="1"
-                    android:layout_row="0"
-                    android:text="Bucket"
-                    android:textSize="18sp" />
-
-
-                <CheckBox
-                    android:id="@+id/chkRes4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="0"
-                    android:layout_columnWeight="1"
-                    android:layout_row="1"
-                    android:text="Sponge"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/chkRes5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_columnWeight="1"
-                    android:layout_row="1"
-                    android:text="Soap"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/chkRes6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:layout_columnWeight="1"
-                    android:layout_row="1"
-                    android:text="Broom"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/chkRes3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:layout_columnWeight="1"
-                    android:layout_row="0"
-                    android:text="Dustpan"
-                    android:textSize="18sp" />
-
-            </GridLayout>
-
-            <Button
-                android:id="@+id/btnComplete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Complete" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>
