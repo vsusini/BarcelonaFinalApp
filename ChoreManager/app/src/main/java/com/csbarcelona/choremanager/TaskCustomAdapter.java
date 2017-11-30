@@ -1,14 +1,19 @@
 package com.csbarcelona.choremanager;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.*;
+import android.widget.*;
 
 import java.util.*;
 
@@ -17,7 +22,7 @@ import java.util.*;
  */
 
 public class TaskCustomAdapter extends ArrayAdapter {
-    private final Context context;
+    private Context context;
     private List<Task> taskList;
 
 
@@ -26,8 +31,6 @@ public class TaskCustomAdapter extends ArrayAdapter {
         super(context, R.layout.task_item_layout, taskList);
         this.context = context;
         this.taskList = taskList;
-
-
     }
 
 
@@ -37,7 +40,8 @@ public class TaskCustomAdapter extends ArrayAdapter {
 
         EditText taskNameTextField = (EditText) rowView.findViewById(R.id.itemName);
         TextView taskDescriptionField = (TextView) rowView.findViewById(R.id.itemDescription);
-        ImageView taskImage = (ImageView) rowView.findViewById(R.id.taskImage);
+//        ImageView taskImage = (ImageView) rowView.findViewById(R.id.taskImage);
+//        ImageView imgEdit = (ImageView) rowView.findViewById(R.id.imgEdit);
 
         Task task = taskList.get(position);
         taskNameTextField.setText(task.get_name());

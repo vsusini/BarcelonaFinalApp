@@ -214,12 +214,12 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/button4"
+                        android:id="@+id/btnDueDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/None"
-                        android:onClick="showDatePickerDialog"/>
+                        android:onClick="showDatePickerDialog"
+                        android:text="@string/None" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -8,7 +8,7 @@ public class Task {
 
     String _assignee = "assignee";
     String _description = "description";
-    //String _dueDate = "";
+    String _dueDate = "";
     int _duration = 0;
     String _name= "name";
     int _points = 0;
@@ -16,13 +16,13 @@ public class Task {
     String _resources = "";
     String _group = "";
 
-    public Task(String id, String assignee, String resources, String description, int duration, String name, int points, String group ){
+    public Task(String id, String assignee, String resources, String description, int duration, String name, int points, String group, String dueDate ){
         this._name = name;
         this._description = description;
         this._assignee = assignee;
         this._id = id;
         this._points = points;
-//        this._dueDate = dueDate;
+        this._dueDate = dueDate;
         this._resources = resources;
         this._group = group;
     }
@@ -41,8 +41,8 @@ public class Task {
     public String get_group() { return _group; }
     public void set_group(String group){_group = group; }
 
-//    public String get_dueDate() { return _dueDate; }
-//    public void set_dueDate(String dueDate){ _dueDate = dueDate; }
+    public String get_dueDate() { return _dueDate; }
+    public void set_dueDate(String dueDate){ _dueDate = dueDate; }
 
     public int get_duration() { return _duration; }
     public void set_duration(int duration){ _duration = duration; }

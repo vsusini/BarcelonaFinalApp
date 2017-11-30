@@ -24,6 +24,7 @@ public class TaskList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
         Button btnAdd = (Button) findViewById(R.id.btnAddTask);
+        final ImageView imgEdit = (ImageView) findViewById(R.id.imgEdit);
 
         final DatabaseReference databaseTasks = FirebaseDatabase.getInstance().getReference("Tasks");
 
@@ -59,7 +60,14 @@ public class TaskList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                ImageButton btnEdit = (ImageButton) findViewById(R.id.imgEdit);
+                imgEdit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent editTaskIntent = new Intent(getApplicationContext(), EditTask.class);
+                        startActivity(editTaskIntent);
+                    }
+                });
             }
         });
 
@@ -69,6 +77,10 @@ public class TaskList extends AppCompatActivity {
                 startActivity(taskIntent);
             }
         });
+
+
+
+
 
     }
 

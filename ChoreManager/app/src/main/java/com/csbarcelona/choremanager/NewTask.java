@@ -53,6 +53,8 @@ public class NewTask extends AppCompatActivity {
                     points = 0;
                 }
 
+                Button btnDueDate = (Button) findViewById(R.id.btnDueDate);
+                String dueDate = btnDueDate.getText().toString().trim();
 
                 String assignees = "";
                 CheckBox[] chkAssignee = {(CheckBox)findViewById(R.id.chkAss1),(CheckBox)findViewById(R.id.chkAss2),(CheckBox)findViewById(R.id.chkAss3),(CheckBox)findViewById(R.id.chkAss4)};
@@ -87,12 +89,12 @@ public class NewTask extends AppCompatActivity {
 
                 //Check if right fields are filled out
 
-                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assignees) && !TextUtils.isEmpty(group)&& duration > 0 && points > 0){
+                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assignees) && !dueDate.equals("NONE") && !TextUtils.isEmpty(group)&& duration > 0 && points > 0){
                     //Get unique ID using push().getKey()
                     String id = dR.push().getKey();
 
                     //Create Task
-                    Task task = new Task(id, assignees,resources,description, duration, name, points, group);
+                    Task task = new Task(id, assignees,resources,description, duration, name, points, group, dueDate);
 
                     dR.child(id).setValue(task);
 
