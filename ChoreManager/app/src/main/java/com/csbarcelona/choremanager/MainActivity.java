@@ -78,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         //If successful login, then should change pages.
                         Toast.makeText(MainActivity.this, "SHOULD MOVE PAGE GOOD WORK", Toast.LENGTH_LONG).show();
-                        //(new Intent(MainActivity.this, /*new Task View*/activity_task_list.class));
+                        //(new Intent(MainActivity.this, /*new Task View*/activity_task_list.claparent@gmail.comss));
+                        Intent taskIntent = new Intent(MainActivity.this, TaskList.class);
+                        startActivity(taskIntent);
                         //How to get the user. FirebaseUser user = mAuth.getCurrentUser();
                     }
                 }

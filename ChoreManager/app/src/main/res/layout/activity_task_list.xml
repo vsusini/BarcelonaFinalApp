@@ -4,7 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.csbarcelona.choremanager.MainActivity">
+    tools:context="com.csbarcelona.choremanager.TaskList">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="50dp"
+        android:scrollbars="vertical">
+
+    </ListView>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -16,13 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:text="Display Only My Tasks" />
-    </FrameLayout>
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="50dp"
-        android:scrollbars="vertical" />
+        <Button
+            android:id="@+id/btnAddTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

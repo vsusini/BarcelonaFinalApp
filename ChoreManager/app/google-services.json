@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "151789817845-6to08ki6idb2kvkqlu322t9ofsbe34lj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.csbarcelona.choremanager",
+            "certificate_hash": "f7085f9065d45317a64c72766616ccaf7f6a8fb4"
+          }
+        },
+        {
           "client_id": "151789817845-s51s8gmv17hvidnsr0nosdulul8uif01.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
