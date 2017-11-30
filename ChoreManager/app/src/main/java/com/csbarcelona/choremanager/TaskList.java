@@ -62,7 +62,7 @@ public class TaskList extends AppCompatActivity {
         });
     }
 
-    Button btnAdd = (Button) findViewById(R.id.btnAddTask);
+    //Button btnAdd = (Button) findViewById(R.id.btnAddTask);
 
 
 
