@@ -306,7 +306,14 @@
                     android:layout_row="0"
                     android:text="Dustpan"
                     android:textSize="18sp" />
+
             </GridLayout>
+
+            <Button
+                android:id="@+id/btnComplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Complete" />
 
         </LinearLayout>
 

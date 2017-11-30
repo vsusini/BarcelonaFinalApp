@@ -345,9 +345,17 @@
                         android:layout_row="0"
                         android:text="Dustpan"
                         android:textSize="18sp" />
+
                 </GridLayout>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnComplete3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="Complete" />
 
         </LinearLayout>
     </ScrollView>

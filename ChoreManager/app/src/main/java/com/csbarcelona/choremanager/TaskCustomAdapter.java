@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.util.*;
 
 import java.util.*;
 
@@ -39,8 +40,8 @@ public class TaskCustomAdapter extends ArrayAdapter {
         ImageView taskImage = (ImageView) rowView.findViewById(R.id.taskImage);
 
         Task task = taskList.get(position);
-        taskNameTextField.setText(task._name);
-        taskDescriptionField.setText(task._description);
+        taskNameTextField.setText(task.get_name());
+        taskDescriptionField.setText(task.get_description());
 
         return rowView;
     }

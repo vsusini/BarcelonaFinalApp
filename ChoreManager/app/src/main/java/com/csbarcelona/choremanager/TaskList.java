@@ -17,7 +17,7 @@ import java.util.*;
 
 public class TaskList extends AppCompatActivity {
     String[] taskNames, taskDescription;
-    private List<Task> taskList = new ArrayList<Task>();
+    private List<Task> taskList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class TaskList extends AppCompatActivity {
         setContentView(R.layout.activity_task_list);
         Button btnAdd = (Button) findViewById(R.id.btnAddTask);
 
-        final DatabaseReference databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
+        final DatabaseReference databaseTasks = FirebaseDatabase.getInstance().getReference("Tasks");
 
         databaseTasks.addValueEventListener(new ValueEventListener() {
             @Override
@@ -37,7 +37,6 @@ public class TaskList extends AppCompatActivity {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                     //Get Task
                     Task task = postSnapshot.getValue(Task.class);
-
                     //add task to list
                     taskList.add(task);
                 }
@@ -71,17 +70,10 @@ public class TaskList extends AppCompatActivity {
             }
         });
 
+    }
 
     }
 
-
-    }
-//    Switch filter = (Switch) findViewById(R.id.filter);
-//    filter.setOnCheckedChangedListener(new CompoundButton.OnCheckedChangeListener()){
-//        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-//
-//        }
-//    }
 
 
 

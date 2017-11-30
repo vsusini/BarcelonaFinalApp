@@ -6,29 +6,51 @@ package com.csbarcelona.choremanager;
 
 public class Task {
 
-    String _name;
-    String _description;
-    String _assignee;
-    String _id;
+    String _assignee = "assignee";
+    String _description = "description";
+    String _dueDate = "";
+    int _duration = 0;
+    String _name= "name";
+    int _points = 0;
+    String _id = "";
 
-    public Task(String name, String description, String assignee, String id ){
+
+    public Task(String id, String assignee, String description, String dueDate, int duration, String name, int points ){
         this._name = name;
         this._description = description;
         this._assignee = assignee;
         this._id = id;
-    }
-
-    public String get_name(){
-        return _name;
-    }
-
-    public String get_description(){
-        return _description;
+        this._points = points;
+        this._dueDate = dueDate;
     }
 
     public String get_assignee(){
         return _assignee;
     }
+    public void set_assignee(String assignee) { _assignee = assignee; }
+
+    public String get_description(){
+        return _description;
+    }
+    public void set_description(String description){ _description = description; }
+
+    public String get_dueDate() { return _dueDate; }
+    public void set_dueDate(String dueDate){ _dueDate = dueDate; }
+
+    public int get_duration() { return _duration; }
+    public void set_duration(int duration){ _duration = duration; }
+
+    public String get_name(){
+        return _name;
+    }
+    public void set_name(String name){ _name = name; }
+
+    public int get_points() { return _points; }
+    public void set_points(int points){ _points = points; }
+
+    public String get_id(){ return _id; }
+    public void setId(String id){ _id = id; }
+
     public Task(){
 
     }
