@@ -1,5 +1,6 @@
 package com.csbarcelona.choremanager;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -62,8 +63,16 @@ public class TaskList extends AppCompatActivity {
 
             }
         });
-    }
 
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                Intent taskIntent = new Intent(getApplicationContext(), NewTask.class);
+                startActivity(taskIntent);
+            }
+        });
+
+
+    }
 
 
     }
