@@ -8,20 +8,20 @@ public class Task {
 
     String _assignee = "assignee";
     String _description = "description";
-    String _dueDate = "";
+    //String _dueDate = "";
     int _duration = 0;
     String _name= "name";
     int _points = 0;
     String _id = "";
 
 
-    public Task(String id, String assignee, String description, String dueDate, int duration, String name, int points ){
+    public Task(String id, String assignee, String description, int duration, String name, int points ){
         this._name = name;
         this._description = description;
         this._assignee = assignee;
         this._id = id;
         this._points = points;
-        this._dueDate = dueDate;
+//        this._dueDate = dueDate;
     }
 
     public String get_assignee(){
@@ -34,8 +34,8 @@ public class Task {
     }
     public void set_description(String description){ _description = description; }
 
-    public String get_dueDate() { return _dueDate; }
-    public void set_dueDate(String dueDate){ _dueDate = dueDate; }
+//    public String get_dueDate() { return _dueDate; }
+//    public void set_dueDate(String dueDate){ _dueDate = dueDate; }
 
     public int get_duration() { return _duration; }
     public void set_duration(int duration){ _duration = duration; }

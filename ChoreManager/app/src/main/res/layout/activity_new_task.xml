@@ -141,7 +141,7 @@
                 <!--- the names in the checkbox will have to be changed. right now they are hardcoded-->
 
                 <CheckBox
-                    android:id="@+id/checkBox8"
+                    android:id="@+id/chkAss1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
@@ -151,7 +151,7 @@
                     android:textSize="18sp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox7"
+                    android:id="@+id/chkAss2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
@@ -162,7 +162,7 @@
 
 
                 <CheckBox
-                    android:id="@+id/checkBox6"
+                    android:id="@+id/chkAss3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
@@ -172,7 +172,7 @@
                     android:textSize="18sp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox5"
+                    android:id="@+id/chkAss4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
