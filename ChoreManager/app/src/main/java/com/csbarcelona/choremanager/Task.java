@@ -15,8 +15,9 @@ public class Task {
     String _id = "";
     String _resources = "";
     String _group = "";
+    String _durationUnits = "";
 
-    public Task(String id, String assignee, String resources, String description, int duration, String name, int points, String group, String dueDate ){
+    public Task(String id, String assignee, String resources, String description, int duration, String name, int points, String group, String dueDate, String _durationUnits ){
         this._name = name;
         this._description = description;
         this._assignee = assignee;
@@ -25,6 +26,7 @@ public class Task {
         this._dueDate = dueDate;
         this._resources = resources;
         this._group = group;
+        this._durationUnits = _durationUnits;
     }
 
     public String get_assignee(){return _assignee;}
@@ -57,6 +59,9 @@ public class Task {
 
     public String get_id(){ return _id; }
     public void setId(String id){ _id = id; }
+
+    public String get_durationUnits(){ return _durationUnits; }
+    public void set_durationUnits(String durationUnits){ _durationUnits = durationUnits; }
 
     public Task(){
 

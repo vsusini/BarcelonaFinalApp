@@ -86,15 +86,19 @@ public class NewTask extends AppCompatActivity {
                     }
                 }
 
+                Spinner spinUnits = (Spinner) findViewById(R.id.duration_spinner);
+                String units = spinUnits.getSelectedItem().toString();
+
+
 
                 //Check if right fields are filled out
 
-                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assignees) && !dueDate.equals("NONE") && !TextUtils.isEmpty(group)&& duration > 0 && points > 0){
+                if(!TextUtils.isEmpty(units) && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assignees) && !dueDate.equals("NONE") && !TextUtils.isEmpty(group)&& duration > 0 && points > 0){
                     //Get unique ID using push().getKey()
                     String id = dR.push().getKey();
 
                     //Create Task
-                    Task task = new Task(id, assignees,resources,description, duration, name, points, group, dueDate);
+                    Task task = new Task(id, assignees,resources,description, duration, name, points, group, dueDate, units);
 
                     dR.child(id).setValue(task);
 
