@@ -37,8 +37,8 @@ public class NewTask extends AppCompatActivity {
                 EditText txtDescription = (EditText) findViewById(R.id.description);
                 String description = txtDescription.getText().toString().trim();
 
-                EditText txtGroup = (EditText) findViewById(R.id.taskGroup);
-                String group = txtGroup.getText().toString().trim();
+//                EditText txtGroup = (EditText) findViewById(R.id.taskGroup);
+//                String group = txtGroup.getText().toString().trim();
 
                 int duration,points;
 
@@ -89,16 +89,18 @@ public class NewTask extends AppCompatActivity {
                 Spinner spinUnits = (Spinner) findViewById(R.id.duration_spinner);
                 String units = spinUnits.getSelectedItem().toString();
 
+                Spinner spinRepeat = (Spinner) findViewById(R.id.recurring_spinner);
+                String repeat = spinRepeat.getSelectedItem().toString();
 
 
                 //Check if right fields are filled out
 
-                if(!TextUtils.isEmpty(units) && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assignees) && !dueDate.equals("NONE") && !TextUtils.isEmpty(group)&& duration > 0 && points > 0){
+                if(!TextUtils.isEmpty(units) && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assignees) && !dueDate.equals("NONE") && duration > 0 && points > 0){
                     //Get unique ID using push().getKey()
                     String id = dR.push().getKey();
 
                     //Create Task
-                    Task task = new Task(id, assignees,resources,description, duration, name, points, group, dueDate, units);
+                    Task task = new Task(id, assignees,resources,description, duration, name, points, "Child", dueDate, units, "I", repeat);
 
                     dR.child(id).setValue(task);
 

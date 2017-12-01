@@ -42,7 +42,7 @@
                 android:orientation="horizontal">
 
                 <Switch
-                    android:id="@+id/switch1"
+                    android:id="@+id/editStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -228,12 +228,12 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnDueDate"
+                        android:id="@+id/editDueDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/None"
-                        android:onClick="showDatePickerDialog"/>
+                        android:onClick="showDatePickerDialog"
+                        android:text="@string/None" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -257,11 +257,11 @@
                     android:orientation="horizontal">
 
                     <Spinner
-                        android:id="@+id/recurring_spinner"
+                        android:id="@+id/editRepeat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:entries="@array/recurring_array"/>
+                        android:entries="@array/recurring_array" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -358,11 +358,11 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnComplete3"
+                    android:id="@+id/btnUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Complete" />
+                    android:text="Update" />
 
                 <Button
                     android:id="@+id/btnDelete"
