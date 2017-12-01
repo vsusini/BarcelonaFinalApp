@@ -17,4 +17,11 @@
         <item>days</item>
     </string-array>
 
+    <string-array name="task_group_array">
+        <item></item>
+        <item>Parent</item>
+        <item>Child</item>
+        <item>All</item>
+    </string-array>
+
 </resources>

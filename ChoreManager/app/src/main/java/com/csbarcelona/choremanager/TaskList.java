@@ -25,6 +25,7 @@ public class TaskList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
+        Button btnUser = (Button) findViewById(R.id.btnUser);
         Button btnAdd = (Button) findViewById(R.id.btnAddTask);
         final ImageView imgEdit = (ImageView) findViewById(R.id.imgEdit);
 
@@ -76,7 +77,16 @@ public class TaskList extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
     }
+=======
+        btnUser.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Toast.makeText(TaskList.this, "Moving to user Page", Toast.LENGTH_LONG).show();
+            }
+        });
+
+>>>>>>> 0f11fae306490d6e8ab86316448e5c425213dac4
 
     private void showUpdateDeleteScreen(Task currentTask){
 //        //Create Dialog with options

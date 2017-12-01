@@ -48,14 +48,6 @@
                     android:layout_weight="1"
                     android:hint="@string/Task_Name" />
 
-                <EditText
-                    android:id="@+id/taskGroup"
-                    android:layout_width="184dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/Task_Group"
-                    android:inputType="textPersonName" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -93,7 +85,8 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/Estimated_Duration" />
+                    android:hint="@string/Estimated_Duration"
+                    android:inputType="number" />
 
                 <Spinner
                     android:id="@+id/duration_spinner"
