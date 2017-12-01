@@ -2,9 +2,11 @@ package com.csbarcelona.choremanager;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -27,7 +29,7 @@ public class TaskList extends AppCompatActivity {
         final ImageView imgEdit = (ImageView) findViewById(R.id.imgEdit);
 
         final DatabaseReference databaseTasks = FirebaseDatabase.getInstance().getReference("Tasks");
-
+        //Load tasks from database
         databaseTasks.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -41,7 +43,7 @@ public class TaskList extends AppCompatActivity {
                     //add task to list
                     taskList.add(task);
                 }
-
+                //Display tasks
                 TaskCustomAdapter customAdapter = new TaskCustomAdapter(com.csbarcelona.choremanager.TaskList.this, taskList);
                 ListView list = (ListView) findViewById(R.id.list);
                 list.setAdapter(customAdapter);
@@ -52,36 +54,42 @@ public class TaskList extends AppCompatActivity {
 
             }
         });
+
+        //Display Tasks
         ListView listView = (ListView) findViewById(R.id.list);
 
         TaskCustomAdapter adapter = new TaskCustomAdapter(this,taskList);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ImageButton btnEdit = (ImageButton) findViewById(R.id.imgEdit);
-                imgEdit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent editTaskIntent = new Intent(getApplicationContext(), EditTask.class);
-                        startActivity(editTaskIntent);
-                    }
-                });
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Task task = taskList.get(i);
+                showUpdateDeleteScreen(task);
+                return true;
             }
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                Intent taskIntent = new Intent(getApplicationContext(), NewTask.class);
-                startActivity(taskIntent);
+
             }
         });
 
+    }
 
+    private void showUpdateDeleteScreen(Task currentTask){
+//        //Create Dialog with options
+//        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+//        LayoutInflater inflater = getLayoutInflater();
+//        View dialogView = inflater.inflate(R.layout.activity_edit_task,null);
+//        dialogBuilder.setView(dialogView);
+//
+//        dialogBuilder.setTitle(taskName);
+//        AlertDialog editDialog = dialogBuilder.create();
+//        editDialog.show();
 
-
-
+        EditText txtName = (EditText) findViewById();
     }
 
     }
