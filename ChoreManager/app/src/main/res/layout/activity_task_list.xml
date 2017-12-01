@@ -6,33 +6,64 @@
     android:layout_height="match_parent"
     tools:context="com.csbarcelona.choremanager.TaskList">
 
-    <ListView
-        android:id="@+id/list"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="50dp"
-        android:scrollbars="vertical">
-
-    </ListView>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="50dp">
-
-        <Switch
-            android:id="@+id/filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="Display Only My Tasks" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
         <Button
             android:id="@+id/btnAddTask"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:text="@string/newTask" />
 
-    </FrameLayout>
 
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Filter"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="38dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnUser"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/user" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="493dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="507dp"
+            android:scrollbars="vertical"
+            tools:layout_editor_absoluteY="60dp"></ListView>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
