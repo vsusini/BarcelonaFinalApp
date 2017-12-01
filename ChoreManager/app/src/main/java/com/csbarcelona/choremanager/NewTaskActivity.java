@@ -2,27 +2,71 @@ package com.csbarcelona.choremanager;
 
 
 import android.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.*;
-import android.content.*;
-import android.widget.*;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class NewTask extends AppCompatActivity {
+
+public class NewTaskActivity extends AppCompatActivity {
 
     DatabaseReference dR;
     final int numberOfUsers = 4;
     final int numberOfResources = 6;
+    DatabaseReference dBR;
+    int userSpinnerPosition;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+
+
+        // Used to populate assigned users spinner with names in datebase.
+        dBR = FirebaseDatabase.getInstance().getReference();
+        dBR.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> listNames = new ArrayList<String>();
+
+                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()){
+                    String fname = areaSnapshot.child("name").getValue(String.class);
+                    listNames.add(fname);
+                }
+                listNames.add(0,"");
+
+                Spinner nameSpinner = (Spinner)findViewById(R.id.assignedUserSpinner);
+                ArrayAdapter<String> fnameAdapter = new ArrayAdapter<String>(NewTaskActivity.this, android.R.layout.simple_spinner_item,listNames);
+
+                fnameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                nameSpinner.setAdapter(fnameAdapter);
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         dR = FirebaseDatabase.getInstance().getReference("Tasks");
         Button btnComplete = (Button) findViewById(R.id.btnComplete);
@@ -56,20 +100,8 @@ public class NewTask extends AppCompatActivity {
                 Button btnDueDate = (Button) findViewById(R.id.btnDueDate);
                 String dueDate = btnDueDate.getText().toString().trim();
 
-                String assignees = "";
-                CheckBox[] chkAssignee = {(CheckBox)findViewById(R.id.chkAss1),(CheckBox)findViewById(R.id.chkAss2),(CheckBox)findViewById(R.id.chkAss3),(CheckBox)findViewById(R.id.chkAss4)};
-
-                for(int i = 0; i< numberOfUsers; i++){
-
-                        if(chkAssignee[i].isChecked()){
-                            if(i != numberOfUsers){
-                                assignees += chkAssignee[i].getText().toString().trim() + ",";
-                            }else{
-                                assignees += chkAssignee[i].getText().toString().trim();
-                            }
-
-                        }
-                }
+                Spinner spinAssigned = (Spinner) findViewById(R.id.assignedUserSpinner);
+                String assigned = spinAssigned.getSelectedItem().toString();
 
                 String resources = "";
                 CheckBox[] chkRes = {(CheckBox)findViewById(R.id.chkRes1),(CheckBox)findViewById(R.id.chkRes2),(CheckBox)findViewById(R.id.chkRes3),(CheckBox)findViewById(R.id.chkRes4),(CheckBox)findViewById(R.id.chkRes5),(CheckBox)findViewById(R.id.chkRes6)};
@@ -95,12 +127,12 @@ public class NewTask extends AppCompatActivity {
 
                 //Check if right fields are filled out
 
-                if(!TextUtils.isEmpty(units) && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assignees) && !dueDate.equals("NONE") && duration > 0 && points > 0){
+                if(!TextUtils.isEmpty(units) && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assigned) && !dueDate.equals("NONE") && duration > 0 && points > 0){
                     //Get unique ID using push().getKey()
                     String id = dR.push().getKey();
 
                     //Create Task
-                    Task task = new Task(id, assignees,resources,description, duration, name, points, "Child", dueDate, units, "I", repeat);
+                    Task task = new Task(id, assigned,resources,description, duration, name, points, "Child", dueDate, units, "I", repeat);
 
                     dR.child(id).setValue(task);
 
@@ -115,9 +147,13 @@ public class NewTask extends AppCompatActivity {
         });
     }
 
+    // shows the date picker dialogue
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
     }
+
+
+
 
 }

@@ -1,22 +1,17 @@
 package com.csbarcelona.choremanager;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.*;
 
 import com.google.firebase.database.*;
-
-import org.w3c.dom.Text;
 
 import java.util.*;
 
@@ -77,7 +72,7 @@ public class TaskList extends AppCompatActivity {
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                Intent taskIntent = new Intent(getApplicationContext(), NewTask.class);
+                Intent taskIntent = new Intent(getApplicationContext(), NewTaskActivity.class);
                 startActivity(taskIntent);
             }
         });

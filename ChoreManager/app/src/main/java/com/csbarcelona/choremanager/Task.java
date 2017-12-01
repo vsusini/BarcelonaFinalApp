@@ -29,6 +29,7 @@ public class Task {
         this._dueDate = dueDate;
         this._resources = resources;
         this._group = group;
+        this._duration = duration;
         this._durationUnits = _durationUnits;
         this._status = status;
         this._repeat = repeat;

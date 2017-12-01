@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.csbarcelona.choremanager.NewTask">
+    tools:context="com.csbarcelona.choremanager.NewTaskActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -133,57 +133,18 @@
                         android:text="@string/ASSIGNED_USERS" />
                 </LinearLayout>
 
-                <GridLayout
-                    android:id="@+id/checkBoxGrid"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:columnCount="2"
-                    android:orientation="vertical"
-                    android:rowCount="2">
+                <LinearLayout
+                    android:id="@+id/horizontalLayout16"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <!--- the names in the checkbox will have to be changed. right now they are hardcoded-->
+                    <Spinner
+                        android:id="@+id/assignedUserSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                    <CheckBox
-                        android:id="@+id/chkAss1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_columnWeight="1"
-                        android:layout_row="0"
-                        android:text="Nancy"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/chkAss2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_columnWeight="1"
-                        android:layout_row="0"
-                        android:text="Bill"
-                        android:textSize="18sp" />
-
-
-                    <CheckBox
-                        android:id="@+id/chkAss3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_columnWeight="1"
-                        android:layout_row="1"
-                        android:text="Ryan"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/chkAss4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_columnWeight="1"
-                        android:layout_row="1"
-                        android:text="Ally"
-                        android:textSize="18sp" />
-                </GridLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/LinearLayout12"
@@ -256,6 +217,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/RESOURCES" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/horizontalLayout17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <Spinner
+                        android:id="@+id/resource_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:spinnerMode="dialog" />
                 </LinearLayout>
 
                 <GridLayout
