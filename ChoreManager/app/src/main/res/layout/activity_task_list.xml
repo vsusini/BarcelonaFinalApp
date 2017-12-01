@@ -36,9 +36,10 @@
                 android:textSize="24sp" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/taskGroupSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="38dp" />
+                android:layout_height="38dp"
+                android:entries="@array/task_group_array"/>
         </LinearLayout>
 
         <Button
