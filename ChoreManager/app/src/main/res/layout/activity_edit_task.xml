@@ -63,14 +63,6 @@
                     android:layout_weight="1"
                     android:hint="@string/Task_Name" />
 
-                <EditText
-                    android:id="@+id/editGroup"
-                    android:layout_width="184dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/Task_Group"
-                    android:inputType="textPersonName" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -144,8 +136,9 @@
 
                 <LinearLayout
                     android:id="@+id/horizontalLayout07"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
@@ -156,6 +149,19 @@
                         android:text="@string/ASSIGNED_USERS" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/horizontalLayout08"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/assignedUserSpinner2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
                 <GridLayout
                     android:id="@+id/checkBoxGrid"
                     android:layout_width="match_parent"
@@ -164,46 +170,7 @@
                     android:orientation="vertical"
                     android:rowCount="2">
 
-                    <CheckBox
-                        android:id="@+id/checkBox8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_columnWeight="1"
-                        android:layout_row="0"
-                        android:text="Nancy"
-                        android:textSize="18sp" />
 
-                    <CheckBox
-                        android:id="@+id/checkBox7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_columnWeight="1"
-                        android:layout_row="0"
-                        android:text="Bill"
-                        android:textSize="18sp" />
-
-
-                    <CheckBox
-                        android:id="@+id/checkBox6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_columnWeight="1"
-                        android:layout_row="1"
-                        android:text="Ryan"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_columnWeight="1"
-                        android:layout_row="1"
-                        android:text="Ally"
-                        android:textSize="18sp" />
                 </GridLayout>
 
                 <LinearLayout

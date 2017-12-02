@@ -8,31 +8,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:paddingBottom="7.5dp"
+        android:paddingTop="7.5dp">
+
+
+
+        <ImageView
+            android:id="@+id/taskImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1.8"
+            android:contentDescription="@string/chore1"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!--android:paddingBottom="7.5dp"
-            android:paddingTop="7.5dp"> -->
-
-            <ImageView
-                android:id="@+id/taskImage"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="start"
-                android:layout_weight="1.8"
-                android:contentDescription="@string/chore1"
-                app:srcCompat="@mipmap/ic_launcher" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/resourceName"
@@ -44,22 +42,23 @@
                 android:inputType="none"
                 android:text="Name" />
 
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-
             <Button
                 android:id="@+id/btnDeleteResource"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="Delete" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 

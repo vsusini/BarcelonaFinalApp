@@ -27,11 +27,13 @@ import java.util.List;
 public class NewTaskActivity extends AppCompatActivity {
 
     DatabaseReference dR;
-    final int numberOfUsers = 4;
     final int numberOfResources = 6;
     DatabaseReference dBR;
+<<<<<<< HEAD
     int userSpinnerPosition;
     DatabaseReference dbResource;
+=======
+>>>>>>> dacb8616b3b6d3b8c45653dc2dfc6469899129b5
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +47,14 @@ public class NewTaskActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> listNames = new ArrayList<String>();
 
-                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     String fname = areaSnapshot.child("name").getValue(String.class);
                     listNames.add(fname);
                 }
-                listNames.add(0,"");
+                listNames.add(0, "");
 
-                Spinner nameSpinner = (Spinner)findViewById(R.id.assignedUserSpinner);
-                ArrayAdapter<String> fnameAdapter = new ArrayAdapter<String>(NewTaskActivity.this, android.R.layout.simple_spinner_item,listNames);
+                Spinner nameSpinner = (Spinner) findViewById(R.id.assignedUserSpinner);
+                ArrayAdapter<String> fnameAdapter = new ArrayAdapter<String>(NewTaskActivity.this, android.R.layout.simple_spinner_item, listNames);
 
                 fnameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 nameSpinner.setAdapter(fnameAdapter);
@@ -74,12 +76,15 @@ public class NewTaskActivity extends AppCompatActivity {
                     resourceNames.add(rname);
                 }
 
+<<<<<<< HEAD
                 Spinner resourceSpinner = (Spinner)findViewById(R.id.resource_spinner);
                 ArrayAdapter<String> rnameAdapter = new ArrayAdapter<String>(NewTaskActivity.this, android.R.layout.select_dialog_multichoice,resourceNames);
 
                 rnameAdapter.setDropDownViewResource(android.R.layout.select_dialog_multichoice);
                 resourceSpinner.setAdapter(rnameAdapter);
 
+=======
+>>>>>>> dacb8616b3b6d3b8c45653dc2dfc6469899129b5
             }
 
             @Override
@@ -89,13 +94,16 @@ public class NewTaskActivity extends AppCompatActivity {
         });
 
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> dacb8616b3b6d3b8c45653dc2dfc6469899129b5
         dR = FirebaseDatabase.getInstance().getReference("Tasks");
         Button btnComplete = (Button) findViewById(R.id.btnComplete);
         btnComplete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
+            public void onClick(View v) {
                 //Add Product
 
                 //Register all fields
@@ -105,10 +113,9 @@ public class NewTaskActivity extends AppCompatActivity {
                 EditText txtDescription = (EditText) findViewById(R.id.description);
                 String description = txtDescription.getText().toString().trim();
 
-//                EditText txtGroup = (EditText) findViewById(R.id.taskGroup);
-//                String group = txtGroup.getText().toString().trim();
 
-                int duration,points;
+
+                int duration, points;
 
                 try {
                     EditText txtDuration = (EditText) findViewById(R.id.estimatedDuration);
@@ -116,7 +123,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
                     EditText txtPoints = (EditText) findViewById(R.id.numChorePoints);
                     points = Integer.parseInt(txtPoints.getText().toString().trim());
-                }catch (Exception e){
+                } catch (Exception e) {
                     duration = 0;
                     points = 0;
                 }
@@ -128,14 +135,14 @@ public class NewTaskActivity extends AppCompatActivity {
                 String assigned = spinAssigned.getSelectedItem().toString();
 
                 String resources = "";
-                CheckBox[] chkRes = {(CheckBox)findViewById(R.id.chkRes1),(CheckBox)findViewById(R.id.chkRes2),(CheckBox)findViewById(R.id.chkRes3),(CheckBox)findViewById(R.id.chkRes4),(CheckBox)findViewById(R.id.chkRes5),(CheckBox)findViewById(R.id.chkRes6)};
+                CheckBox[] chkRes = {(CheckBox) findViewById(R.id.chkRes1), (CheckBox) findViewById(R.id.chkRes2), (CheckBox) findViewById(R.id.chkRes3), (CheckBox) findViewById(R.id.chkRes4), (CheckBox) findViewById(R.id.chkRes5), (CheckBox) findViewById(R.id.chkRes6)};
 
-                for(int i = 0; i < numberOfResources; i++){
+                for (int i = 0; i < numberOfResources; i++) {
 
-                    if(chkRes[i].isChecked()){
-                        if(i != numberOfResources){
+                    if (chkRes[i].isChecked()) {
+                        if (i != numberOfResources) {
                             resources += chkRes[i].getText().toString().trim() + ",";
-                        }else{
+                        } else {
                             resources += chkRes[i].getText().toString().trim();
                         }
 
@@ -149,14 +156,17 @@ public class NewTaskActivity extends AppCompatActivity {
                 String repeat = spinRepeat.getSelectedItem().toString();
 
 
+                //GROUP
+                String group = "Child";
+
                 //Check if right fields are filled out
 
-                if(!TextUtils.isEmpty(units) && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assigned) && !dueDate.equals("NONE") && duration > 0 && points > 0){
+                if (!TextUtils.isEmpty(units) && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assigned)&& !dueDate.equals("NONE") && duration > 0 && points > 0) {
                     //Get unique ID using push().getKey()
                     String id = dR.push().getKey();
 
                     //Create Task
-                    Task task = new Task(id, assigned,resources,description, duration, name, points, "Child", dueDate, units, "I", repeat);
+                    Task task = new Task(id, assigned, resources, description, duration, name, points, dueDate, units, "I", repeat, group);
 
                     dR.child(id).setValue(task);
 
@@ -164,7 +174,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
                     Intent taskIntent = new Intent(getApplicationContext(), TaskList.class);
                     startActivity(taskIntent);
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Please fill all out fields properly!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -176,8 +186,6 @@ public class NewTaskActivity extends AppCompatActivity {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
     }
-
-
 
 
 }

@@ -14,13 +14,14 @@ public class Task {
     int _points = 0;
     String _id = "";
     String _resources = "";
-    String _group = "";
+
     String _durationUnits = "";
     String _status = "";
     String _repeat = "";
+    String _group = "";
 
     public Task(String id, String assignee, String resources, String description,
-                int duration, String name, int points, String group, String dueDate, String _durationUnits, String status, String repeat ){
+                int duration, String name, int points, String dueDate, String _durationUnits, String status, String repeat, String group ){
         this._name = name;
         this._description = description;
         this._assignee = assignee;
@@ -28,11 +29,12 @@ public class Task {
         this._points = points;
         this._dueDate = dueDate;
         this._resources = resources;
-        this._group = group;
+
         this._duration = duration;
         this._durationUnits = _durationUnits;
         this._status = status;
         this._repeat = repeat;
+        this._group = group;
     }
 
     public String get_assignee(){return _assignee;}
@@ -45,9 +47,6 @@ public class Task {
         return _description;
     }
     public void set_description(String description){ _description = description; }
-
-    public String get_group() { return _group; }
-    public void set_group(String group){_group = group; }
 
     public String get_dueDate() { return _dueDate; }
     public void set_dueDate(String dueDate){ _dueDate = dueDate; }
@@ -74,6 +73,10 @@ public class Task {
 
     public String get_repeat(){ return  _repeat; }
     public void set_repeat(String repeat){ _repeat = repeat; }
+
+    public String get_group(){ return _group; }
+    public void set_group(String group){_group = group; }
+
     public Task(){
 
     }

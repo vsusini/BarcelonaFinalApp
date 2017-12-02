@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -50,9 +51,9 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         resources = new ArrayList<>();
 
         // adding an onclicklistener to the add Resources button
-        buttonAddResource.setOnClickListener(new View.OnClickListener(){
+        buttonAddResource.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 addResource();
             }
         });
@@ -62,7 +63,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Resource resource = resources.get(i);
-                showUpdateDeleteDialog(resource.getResourceName());
+                showDeleteDialog(resource.getResourceName());
                 return true;
             }
         });
@@ -83,7 +84,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
                 resources.clear();
 
                 // iterating through all the nodes
-                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     // getting product
                     Resource resource = postSnapshot.getValue(Resource.class);
                     // adding product to the list
@@ -102,7 +103,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         });
     }
 
-    private void showUpdateDeleteDialog(final String resourceName) {
+    private void showDeleteDialog(final String resourceName) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -124,7 +125,6 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     private void addResource() {
@@ -132,13 +132,12 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         String name = editTextResource.getText().toString().trim();
 
         //checking if the value is provided
-        if(!TextUtils.isEmpty(name)){
+        if (!TextUtils.isEmpty(name)) {
 
             String id = databaseResources.push().getKey();
 
             // creating a Resource Object
             Resource resource = new Resource(name);
-
 
 
             // Saving the Resource
@@ -149,20 +148,38 @@ public class ResourceCatalogActivity extends AppCompatActivity {
 
             // displaying a success toast
             Toast.makeText(this, "Resource added", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             // if the value is not given displaying a toast
             Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
         }
 
     }
 
-    private boolean deleteResource(String name){
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("resource").child(name);
-        // removing product
-        dR.removeValue();
-        Toast.makeText(getApplicationContext(), "NOT IMPLEMENTED YET", Toast.LENGTH_LONG).show();
-        return true;
+    private void deleteResource(String name) {
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference();
+        Query resourceQuery = dR.child("resources").orderByChild("resourceName").equalTo("name");
+
+        resourceQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot delSnapshot : dataSnapshot.getChildren()) {
+                    delSnapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        // removing resource
+        /** dR.removeValue();
+         Toast.makeText(getApplicationContext(), "NOT IMPLEMENTED YET", Toast.LENGTH_LONG).show();
+         return true;
+         */
+
 
     }
-
 }
