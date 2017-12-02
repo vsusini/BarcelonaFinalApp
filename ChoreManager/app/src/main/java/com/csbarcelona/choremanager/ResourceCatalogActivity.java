@@ -27,7 +27,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
     Button buttonDeleteResource;
     ListView listViewResources;
 
-    List<Resources> resources;
+    List<Resource> resources;
 
     DatabaseReference databaseResources;
 
@@ -36,12 +36,11 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         databaseResources = FirebaseDatabase.getInstance().getReference("resources");
 
-        setContentView(R.layout.activity_resource_catalog);}
-/**
+        setContentView(R.layout.activity_resource_catalog);
         editTextResource = (EditText) findViewById(R.id.editTextResource);
         listViewResources = (ListView) findViewById(R.id.listViewResources);
         buttonAddResource = (Button) findViewById(R.id.addResourceBtn);
-        buttonDeleteResource = (Button) findViewById(R.id.deleteResourcebtn);
+        buttonDeleteResource = (Button) findViewById(R.id.deleteResourceBtn);
 
         resources = new ArrayList<>();
 
@@ -111,7 +110,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
 
     }
 
-    private void deleteResource(Resource resource){
+    private void deleteResource(){
 
     }
 
