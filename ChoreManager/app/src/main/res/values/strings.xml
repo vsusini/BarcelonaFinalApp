@@ -21,4 +21,6 @@
     <string name="Pick_One">Pick One</string>
     <string name="Add_Resource">Add</string>
     <string name="Delete_Resource">Delete</string>
+    <string name="menu">Menu</string>
+    <string name="Task">Tasks</string>
 </resources>

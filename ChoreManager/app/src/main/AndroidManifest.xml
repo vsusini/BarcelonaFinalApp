@@ -19,7 +19,8 @@
         <activity android:name=".NewTaskActivity" />
         <activity android:name=".EditTaskActivity" />
         <activity android:name=".TaskList" />
-        <activity android:name=".ResourceCatalogActivity"></activity>
+        <activity android:name=".ResourceCatalogActivity" />
+        <activity android:name=".MenuActivity"></activity>
     </application>
 
 </manifest>

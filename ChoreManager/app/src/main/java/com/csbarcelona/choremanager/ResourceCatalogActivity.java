@@ -13,8 +13,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
     Button buttonDeleteResource;
     ListView listViewResources;
 
-    List<Resources> resources;
+    List<Resource> resources;
 
     DatabaseReference databaseResources;
 
@@ -36,12 +39,11 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         databaseResources = FirebaseDatabase.getInstance().getReference("resources");
 
-        setContentView(R.layout.activity_resource_catalog);}
-/**
+        setContentView(R.layout.activity_resource_catalog);
         editTextResource = (EditText) findViewById(R.id.editTextResource);
         listViewResources = (ListView) findViewById(R.id.listViewResources);
         buttonAddResource = (Button) findViewById(R.id.addResourceBtn);
-        buttonDeleteResource = (Button) findViewById(R.id.deleteResourcebtn);
+        buttonDeleteResource = (Button) findViewById(R.id.deleteResourceBtn);
 
         resources = new ArrayList<>();
 
@@ -70,7 +72,39 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         });
     }
 
-   /* private void showUpdateDeleteDialog(String resourceName){
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        // attaching value event Listener
+        databaseResources.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // clearing the previous artist List
+                resources.clear();
+
+                // iterating through all the nodes
+                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                    // getting product
+                    Resource resource = postSnapshot.getValue(Resource.class);
+                    // adding product to the list
+                    resources.add(resource);
+                }
+                // creating adapter
+                ResourceList resourcesAdapter = new ResourceList(ResourceCatalogActivity.this, resources);
+                // attaching adapter to the listview
+                listViewResources.setAdapter(resourcesAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+   /*private void showUpdateDeleteDialog(String resourceName){
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -84,7 +118,9 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         dialogBuilder.setTitle(resourceName);
         final AlertDialog b = dialogBuilder.create();
         b.show();
-    }*/
+    }
+    */
+
 
     private void addResource() {
         // getting the values to save
@@ -93,11 +129,15 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         //checking if the value is provided
         if(!TextUtils.isEmpty(name)){
 
+            String id = databaseResources.push().getKey();
+
             // creating a Resource Object
             Resource resource = new Resource(name);
 
+
+
             // Saving the Resource
-            databaseResources.child("name").setValue(resource);
+            databaseResources.child(id).setValue(resource);
 
             // setting edittext to blank again
             editTextResource.setText("");
@@ -111,7 +151,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
 
     }
 
-    private void deleteResource(Resource resource){
+    private void deleteResource(){
 
     }
 

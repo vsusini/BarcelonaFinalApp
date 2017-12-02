@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/taskMenu"
+        android:title="Tasks"
+        android:icon="@drawable/pencil"
+        android:actionLayout="@layout/activity_menu"/>
+    <item
+        android:id="@+id/resourcesMenu"
+        android:title="Resources"
+        android:icon="@drawable/trash_small"
+        android:actionLayout="@layout/activity_menu"/>
+</menu>
