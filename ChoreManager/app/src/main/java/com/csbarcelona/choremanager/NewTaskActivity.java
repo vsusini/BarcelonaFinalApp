@@ -31,6 +31,7 @@ public class NewTaskActivity extends AppCompatActivity {
     final int numberOfResources = 6;
     DatabaseReference dBR;
     int userSpinnerPosition;
+    DatabaseReference dbResource;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +56,29 @@ public class NewTaskActivity extends AppCompatActivity {
 
                 fnameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 nameSpinner.setAdapter(fnameAdapter);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        dbResource.child("resources").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> resourceNames = new ArrayList<>();
+
+                for(DataSnapshot areaSnapshot: dataSnapshot.getChildren()){
+                    String rname = areaSnapshot.child("resourceName").getValue(String.class);
+                    resourceNames.add(rname);
+                }
+
+                Spinner resourceSpinner = (Spinner)findViewById(R.id.resource_spinner);
+                ArrayAdapter<String> rnameAdapter = new ArrayAdapter<String>(NewTaskActivity.this, android.R.layout.select_dialog_multichoice,resourceNames);
+
+                rnameAdapter.setDropDownViewResource(android.R.layout.select_dialog_multichoice);
+                resourceSpinner.setAdapter(rnameAdapter);
 
             }
 
@@ -65,6 +87,8 @@ public class NewTaskActivity extends AppCompatActivity {
 
             }
         });
+
+
 
 
 

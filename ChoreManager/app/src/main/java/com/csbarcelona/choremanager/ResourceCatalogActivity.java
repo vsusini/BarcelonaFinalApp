@@ -1,16 +1,20 @@
 package com.csbarcelona.choremanager;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +31,6 @@ public class ResourceCatalogActivity extends AppCompatActivity {
     EditText editTextResource;
 
     Button buttonAddResource;
-    Button buttonDeleteResource;
     ListView listViewResources;
 
     List<Resource> resources;
@@ -43,7 +46,6 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         editTextResource = (EditText) findViewById(R.id.editTextResource);
         listViewResources = (ListView) findViewById(R.id.listViewResources);
         buttonAddResource = (Button) findViewById(R.id.addResourceBtn);
-        buttonDeleteResource = (Button) findViewById(R.id.deleteResourceBtn);
 
         resources = new ArrayList<>();
 
@@ -55,21 +57,17 @@ public class ResourceCatalogActivity extends AppCompatActivity {
             }
         });
 
-        buttonDeleteResource.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                deleteResource();
-            }
-        });
 
         listViewResources.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Resource resource = resources.get(i);
-                //showUpdateDeleteDialog(resource.getResourceName());
+                showUpdateDeleteDialog(resource.getResourceName());
                 return true;
             }
         });
+
+
     }
 
     @Override
@@ -104,23 +102,30 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         });
     }
 
-   /*private void showUpdateDeleteDialog(String resourceName){
+    private void showUpdateDeleteDialog(final String resourceName) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.update_dialog, null);
+        final View dialogView = inflater.inflate(R.layout.resource_item_layout, null);
         dialogBuilder.setView(dialogView);
 
-        final EditText editResourceName = (EditText) dialogView.findViewById(R.id.editTextName);
-        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateProduct);
-        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteProduct);
-
+        final EditText editTextName = (EditText) dialogView.findViewById(R.id.resourceName);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.btnDeleteResource);
         dialogBuilder.setTitle(resourceName);
         final AlertDialog b = dialogBuilder.create();
         b.show();
-    }
-    */
 
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteResource(resourceName);
+                b.dismiss();
+            }
+        });
+
+
+
+    }
 
     private void addResource() {
         // getting the values to save
@@ -151,7 +156,12 @@ public class ResourceCatalogActivity extends AppCompatActivity {
 
     }
 
-    private void deleteResource(){
+    private boolean deleteResource(String name){
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("resource").child(name);
+        // removing product
+        dR.removeValue();
+        Toast.makeText(getApplicationContext(), "NOT IMPLEMENTED YET", Toast.LENGTH_LONG).show();
+        return true;
 
     }
 
