@@ -29,11 +29,11 @@ public class NewTaskActivity extends AppCompatActivity {
     DatabaseReference dR;
     final int numberOfResources = 6;
     DatabaseReference dBR;
-<<<<<<< HEAD
+
     int userSpinnerPosition;
     DatabaseReference dbResource;
-=======
->>>>>>> dacb8616b3b6d3b8c45653dc2dfc6469899129b5
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,15 +76,14 @@ public class NewTaskActivity extends AppCompatActivity {
                     resourceNames.add(rname);
                 }
 
-<<<<<<< HEAD
+
                 Spinner resourceSpinner = (Spinner)findViewById(R.id.resource_spinner);
                 ArrayAdapter<String> rnameAdapter = new ArrayAdapter<String>(NewTaskActivity.this, android.R.layout.select_dialog_multichoice,resourceNames);
 
                 rnameAdapter.setDropDownViewResource(android.R.layout.select_dialog_multichoice);
                 resourceSpinner.setAdapter(rnameAdapter);
 
-=======
->>>>>>> dacb8616b3b6d3b8c45653dc2dfc6469899129b5
+
             }
 
             @Override
@@ -93,13 +92,6 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         });
 
-
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> dacb8616b3b6d3b8c45653dc2dfc6469899129b5
         dR = FirebaseDatabase.getInstance().getReference("Tasks");
         Button btnComplete = (Button) findViewById(R.id.btnComplete);
         btnComplete.setOnClickListener(new View.OnClickListener() {
@@ -155,9 +147,13 @@ public class NewTaskActivity extends AppCompatActivity {
                 Spinner spinRepeat = (Spinner) findViewById(R.id.recurring_spinner);
                 String repeat = spinRepeat.getSelectedItem().toString();
 
-
+                String group = "";
                 //GROUP
-                String group = "Child";
+                for(int i=0; i<TaskList.userList.size();i++){
+                    if(TaskList.userList.get(i).get_name().equals(assigned)){
+                        group = TaskList.userList.get(i).get_group();
+                    }
+                }
 
                 //Check if right fields are filled out
 

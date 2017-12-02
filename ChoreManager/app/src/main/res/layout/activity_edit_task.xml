@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/Estimated_Duration"
-                    android:inputType="text" />
+                    android:inputType="number" />
 
                 <Spinner
                     android:id="@+id/editUnits"
