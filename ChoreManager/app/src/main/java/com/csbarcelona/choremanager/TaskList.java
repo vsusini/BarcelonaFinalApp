@@ -226,7 +226,15 @@ public class TaskList extends AppCompatActivity {
 
 
         Button btnUpdate = (Button) editDialog.findViewById(R.id.btnUpdate);
+        Button btnDelete = (Button) editDialog.findViewById(R.id.btnDelete);
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteTask(currentTask);
+                editDialog.dismiss();
+            }
+        });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,6 +281,14 @@ public class TaskList extends AppCompatActivity {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
 
+    }
+
+    public void deleteTask(Task task){
+        //Create DB reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Tasks").child(task.get_id());
+        //Delete task
+        dR.removeValue();
+        Toast.makeText(getApplicationContext(), "Task Deleted", Toast.LENGTH_LONG).show();
     }
 
     public void updateTask(String id, String assignee, String ressources,
@@ -346,16 +362,14 @@ public class TaskList extends AppCompatActivity {
 
             //Update Points accordingly
             User updatedUser = new User();
-            for(int i=0; i<userList.size(); i++){
-                if(userList.get(i).get_name().equals(assignee)){
+            for (int i = 0; i < userList.size(); i++) {
+                if (userList.get(i).get_name().equals(assignee)) {
                     updatedUser = userList.get(i);
                 }
             }
 
-            updatedUser.set_totalPoints(updatedUser.get_totalPoints()+points);
+            updatedUser.set_totalPoints(updatedUser.get_totalPoints() + points);
             dRU.child(updatedUser.get_id()).setValue(updatedUser);
-
-
 
 
         }
@@ -373,8 +387,8 @@ public class TaskList extends AppCompatActivity {
         final DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
         taskAssignee = assignee;
 
-        for(int i=0; i<userList.size(); i++){
-            if(userList.get(i).get_name().equals(taskAssignee)){
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).get_name().equals(taskAssignee)) {
                 taskGroup = userList.get(i).get_group();
             }
         }

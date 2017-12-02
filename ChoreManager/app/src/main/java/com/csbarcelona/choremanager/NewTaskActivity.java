@@ -33,11 +33,6 @@ public class NewTaskActivity extends AppCompatActivity {
     int userSpinnerPosition;
     DatabaseReference dbResource;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 72f4f2feda6d731b6dc71abd20069409632c25c0
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
@@ -95,12 +90,11 @@ public class NewTaskActivity extends AppCompatActivity {
 
             }
         });
-<<<<<<< HEAD
-=======
+
          */
 
 
->>>>>>> 72f4f2feda6d731b6dc71abd20069409632c25c0
+
 
         dR = FirebaseDatabase.getInstance().getReference("Tasks");
         Button btnComplete = (Button) findViewById(R.id.btnComplete);
