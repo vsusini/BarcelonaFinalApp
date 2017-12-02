@@ -26,17 +26,16 @@ public class ResourceList extends ArrayAdapter<Resource> {
         this.resources = resources;
     }
 
-      //  @Override
-    /*public View getView(int position, View convertView, ViewGroup parent) {
-            View listViewItem = inflater.inflate(android.R.layout.select_dialog_multichoice, null, true);
+      @Override
+      public View getView(int position, View convertView, ViewGroup parent) {
+          LayoutInflater inflater = context.getLayoutInflater();
+          View listViewItem = inflater.inflate(R.layout.resource_item_layout, null, true);
 
-            Spinner resourceSpinner = (Spinner)findViewById(R.id.assignedUserSpinner);
+          TextView resourceViewName = (TextView) listViewItem.findViewById(R.id.resourceName);
 
-            TextView textViewResourceName = (TextView) listViewItem.findViewById(R.id.resource_spinner);
+          Resource resource = resources.get(position);
+          resourceViewName.setText(resource.getResourceName());
 
-            Resource resource = resources.get(position);
-            textViewResourceName.setText(resource.getResourceName());
-            return listViewItem;
-    }
-    */
+          return listViewItem;
+      }
 }
