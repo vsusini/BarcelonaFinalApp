@@ -230,11 +230,13 @@ public class TaskList extends AppCompatActivity {
                 }
                 String repeat = spinRepeat.getSelectedItem().toString();
 
+                //GROUPS
+                String group = "Child";
 
 
                 updateTask(currentTask.get_id(), assignee, currentTask.get_resources(), description,
                         duration,name,points,dueDate,
-                        units,status,repeat);
+                        units,status,repeat, group);
                 editDialog.dismiss();
             }
         });
@@ -246,12 +248,12 @@ public class TaskList extends AppCompatActivity {
 
     }
     public void updateTask(String id, String assignee, String ressources,
-                           String description, int duration, String name, int points, String dueDate, String units, String status, String repeat){
+                           String description, int duration, String name, int points, String dueDate, String units, String status, String repeat, String group){
 
 
         //Update Task
         DatabaseReference dRT = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
-        Task updatedTask = new Task(id,assignee,ressources,description,duration,name,points,dueDate,units,status,repeat);
+        Task updatedTask = new Task(id,assignee,ressources,description,duration,name,points,dueDate,units,status,repeat, group);
         dRT.setValue(updatedTask);
 
         //If task completed add points to user

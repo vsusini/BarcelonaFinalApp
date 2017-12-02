@@ -120,6 +120,9 @@ public class NewTaskActivity extends AppCompatActivity {
                 String repeat = spinRepeat.getSelectedItem().toString();
 
 
+                //GROUP
+                String group = "Child";
+
                 //Check if right fields are filled out
 
                 if (!TextUtils.isEmpty(units) && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(assigned)&& !dueDate.equals("NONE") && duration > 0 && points > 0) {
@@ -127,7 +130,7 @@ public class NewTaskActivity extends AppCompatActivity {
                     String id = dR.push().getKey();
 
                     //Create Task
-                    Task task = new Task(id, assigned, resources, description, duration, name, points, dueDate, units, "I", repeat);
+                    Task task = new Task(id, assigned, resources, description, duration, name, points, dueDate, units, "I", repeat, group);
 
                     dR.child(id).setValue(task);
 
