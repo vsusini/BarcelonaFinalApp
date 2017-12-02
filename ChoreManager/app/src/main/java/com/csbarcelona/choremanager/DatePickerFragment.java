@@ -38,7 +38,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
-        Log.d("ACTIVITYERROR", getActivity().toString());
+
 
         String activity = getActivity().toString();
 
