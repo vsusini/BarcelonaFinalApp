@@ -33,7 +33,10 @@ public class NewTaskActivity extends AppCompatActivity {
     int userSpinnerPosition;
     DatabaseReference dbResource;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72f4f2feda6d731b6dc71abd20069409632c25c0
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +69,7 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         });
 
-        dbResource.child("resources").addValueEventListener(new ValueEventListener() {
+        /**dbResource.child("resources").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> resourceNames = new ArrayList<>();
@@ -86,11 +89,18 @@ public class NewTaskActivity extends AppCompatActivity {
 
             }
 
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+<<<<<<< HEAD
+=======
+         */
+
+
+>>>>>>> 72f4f2feda6d731b6dc71abd20069409632c25c0
 
         dR = FirebaseDatabase.getInstance().getReference("Tasks");
         Button btnComplete = (Button) findViewById(R.id.btnComplete);
