@@ -29,11 +29,10 @@ public class NewTaskActivity extends AppCompatActivity {
     DatabaseReference dR;
     final int numberOfResources = 6;
     DatabaseReference dBR;
-<<<<<<< HEAD
+
     int userSpinnerPosition;
     DatabaseReference dbResource;
-=======
->>>>>>> dacb8616b3b6d3b8c45653dc2dfc6469899129b5
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +65,7 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         });
 
-        dbResource.child("resources").addValueEventListener(new ValueEventListener() {
+        /**dbResource.child("resources").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> resourceNames = new ArrayList<>();
@@ -76,30 +75,26 @@ public class NewTaskActivity extends AppCompatActivity {
                     resourceNames.add(rname);
                 }
 
-<<<<<<< HEAD
+
                 Spinner resourceSpinner = (Spinner)findViewById(R.id.resource_spinner);
                 ArrayAdapter<String> rnameAdapter = new ArrayAdapter<String>(NewTaskActivity.this, android.R.layout.select_dialog_multichoice,resourceNames);
 
                 rnameAdapter.setDropDownViewResource(android.R.layout.select_dialog_multichoice);
                 resourceSpinner.setAdapter(rnameAdapter);
 
-=======
->>>>>>> dacb8616b3b6d3b8c45653dc2dfc6469899129b5
+
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
-
-<<<<<<< HEAD
+         */
 
 
 
-=======
->>>>>>> dacb8616b3b6d3b8c45653dc2dfc6469899129b5
         dR = FirebaseDatabase.getInstance().getReference("Tasks");
         Button btnComplete = (Button) findViewById(R.id.btnComplete);
         btnComplete.setOnClickListener(new View.OnClickListener() {
