@@ -28,6 +28,8 @@ public class TaskList extends AppCompatActivity {
     String[] taskNames, taskDescription;
     private List<Task> taskList = new ArrayList<>();
     public static Button btnEditDueDate;
+    private static String taskAssignee;
+    private static String taskGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +142,7 @@ public class TaskList extends AppCompatActivity {
                 final List<String> listNames = new ArrayList<String>();
 
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
-                    String fname = areaSnapshot.child("name").getValue(String.class);
+                    String fname = areaSnapshot.child("_name").getValue(String.class);
                     listNames.add(fname);
                 }
                 listNames.add(0, "");
@@ -207,11 +209,11 @@ public class TaskList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String assignee = spinAssignee.getSelectedItem().toString();
+                final String assignee = spinAssignee.getSelectedItem().toString();
                 //RESOURCES
                 String description = txtDescription.getText().toString();
                 int duration = 0;
-                String name = txtName.getText().toString();
+                final String name = txtName.getText().toString();
                 int points = 0;
                 try {
                     duration = Integer.parseInt(txtDuration.getText().toString());
@@ -233,8 +235,7 @@ public class TaskList extends AppCompatActivity {
                 String repeat = spinRepeat.getSelectedItem().toString();
 
                 //GROUPS
-                String group = "Child";
-
+                String group = getGroupFromAssignee(assignee,id);
 
                 updateTask(currentTask.get_id(), assignee, currentTask.get_resources(), description,
                         duration, name, points, dueDate,
@@ -252,75 +253,76 @@ public class TaskList extends AppCompatActivity {
     }
 
     public void updateTask(String id, String assignee, String ressources,
-                           String description, int duration, String name, int points, String dueDate, String units, String status, String repeat, String group) {
-
-
+                           String description, int duration, final String name, int points, String dueDate, String units, String status, String repeat, String group) {
         //Update Task
         DatabaseReference dRT = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
+        DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
+
+
         Task updatedTask = new Task(id, assignee, ressources, description, duration, name, points, dueDate, units, status, repeat, group);
         dRT.setValue(updatedTask);
 
+        if (status.equals("C")) {
+            if (!repeat.equals("none")) {
+                //If task recurring, re-create task but at next interval.
+                DatabaseReference dRT2 = FirebaseDatabase.getInstance().getReference("Tasks");
+                Calendar c = Calendar.getInstance();
+                int month = 0, day = 0, year = 0;
 
-        if (status.equals("C") && !repeat.equals("none")) {
-            //If task recurring, re-create task but at next interval.
-            DatabaseReference dRT2 = FirebaseDatabase.getInstance().getReference("Tasks");
-            Calendar c = Calendar.getInstance();
-            int month = 0, day = 0, year = 0;
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                Date repeatDate = new Date();
+                try {
+                    repeatDate = df.parse(dueDate);
+                    year = repeatDate.getYear();
+                    month = repeatDate.getMonth();
+                    day = repeatDate.getDay();
+                } catch (Exception e) {
 
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-            Date repeatDate = new Date();
-            try{
-                repeatDate = df.parse(dueDate);
-                year = repeatDate.getYear();
-                month = repeatDate.getMonth();
-                day = repeatDate.getDay();
-            }catch (Exception e){
+                }
 
+                Task repeatTask = updatedTask;
+
+                Calendar cRepeat = Calendar.getInstance();
+                cRepeat.setTime(repeatDate);
+
+
+                if (repeat.equals("Daily")) {
+                    cRepeat.add(Calendar.DAY_OF_MONTH, 1);
+                } else if (repeat.equals("Weekly")) {
+                    cRepeat.add(Calendar.WEEK_OF_YEAR, 1);
+                } else if (repeat.equals("Monthly")) {
+                    cRepeat.add(Calendar.MONTH, 1);
+                } else if (repeat.equals("Yearly")) {
+                    cRepeat.add(Calendar.YEAR, 1);
+                }
+
+                year = cRepeat.get(Calendar.YEAR);
+                day = cRepeat.get(Calendar.DAY_OF_MONTH);
+                month = cRepeat.get(Calendar.MONTH) + 1;
+
+                String sMonth = String.valueOf(month);
+
+                String sDay = String.valueOf(day);
+
+                if (sMonth.length() < 2) {
+                    sMonth = "0" + (month);
+                }
+                if (sDay.length() < 2) {
+                    sDay = "0" + day;
+                }
+
+                String repeatDueDate = (sMonth + "/" + sDay + "/" + year);
+
+                repeatTask.set_dueDate(repeatDueDate);
+                String newID = dRT.push().getKey();
+                repeatTask.set_status("I");
+                repeatTask.setId(newID);
+
+                dRT2.child(newID).setValue(repeatTask);
             }
 
-            Task repeatTask = updatedTask;
-
-            Calendar cRepeat = Calendar.getInstance();
-            cRepeat.setTime(repeatDate);
-
-
-            if(repeat.equals("Daily")){
-                cRepeat.add(Calendar.DAY_OF_MONTH,1);
-            }else if(repeat.equals("Weekly")){
-                cRepeat.add(Calendar.WEEK_OF_YEAR,1);
-            }else if(repeat.equals("Monthly")){
-                cRepeat.add(Calendar.MONTH,1);
-            }else if(repeat.equals("Yearly")){
-                cRepeat.add(Calendar.YEAR,1);
-            }
-
-            year = cRepeat.get(Calendar.YEAR);
-            day = cRepeat.get(Calendar.DAY_OF_MONTH);
-            month = cRepeat.get(Calendar.MONTH)+1;
-
-            String sMonth = String.valueOf(month);
-
-            String sDay = String.valueOf(day);
-
-            if (sMonth.length() < 2) {
-                sMonth = "0" + (month);
-            }
-            if (sDay.length() < 2) {
-                sDay = "0" + day;
-            }
-
-            String repeatDueDate = (sMonth + "/" + sDay + "/" + year);
-
-            repeatTask.set_dueDate( repeatDueDate );
-            String newID = dRT.push().getKey();
-            repeatTask.set_status("I");
-            repeatTask.setId(newID);
-
-            dRT2.child(newID).setValue(repeatTask);
         }
 
-        //If task completed add points to user
-        DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
 
         if (status.equals("I")) {
             Toast.makeText(getApplicationContext(), "Task Updated", Toast.LENGTH_LONG).show();
@@ -330,7 +332,31 @@ public class TaskList extends AppCompatActivity {
 
     }
 
+    public String getGroupFromAssignee(String assignee, String id){
+        DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
+        taskAssignee = assignee;
 
+        dRU.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                    String fname = areaSnapshot.child("_name").getValue(String.class);
+
+                    if (fname.equals(taskAssignee)) {
+                        taskGroup = areaSnapshot.child("_group").getValue(String.class);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return taskGroup;
+    }
 }
 
 

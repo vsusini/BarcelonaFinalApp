@@ -47,7 +47,7 @@ public class NewTaskActivity extends AppCompatActivity {
                 final List<String> listNames = new ArrayList<String>();
 
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
-                    String fname = areaSnapshot.child("name").getValue(String.class);
+                    String fname = areaSnapshot.child("_name").getValue(String.class);
                     listNames.add(fname);
                 }
                 listNames.add(0, "");
