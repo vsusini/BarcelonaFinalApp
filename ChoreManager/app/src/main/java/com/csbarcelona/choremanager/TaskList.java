@@ -1,5 +1,8 @@
 package com.csbarcelona.choremanager;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +21,7 @@ import java.util.*;
 public class TaskList extends AppCompatActivity {
     String[] taskNames, taskDescription;
     private List<Task> taskList = new ArrayList<>();
-
+    public static Button btnEditDueDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,8 @@ public class TaskList extends AppCompatActivity {
 
             }
         });
+
+
 
         //Display Tasks
         ListView listView = (ListView) findViewById(R.id.list);
@@ -95,81 +100,165 @@ public class TaskList extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.activity_edit_task,null);
+
+        DatabaseReference dBR;
+
+
         dialogBuilder.setView(dialogView);
 
+
+
         dialogBuilder.setTitle(currentTask.get_name());
-        AlertDialog editDialog = dialogBuilder.create();
+        final AlertDialog editDialog = dialogBuilder.create();
         editDialog.show();
-        EditText txtName = (EditText) editDialog.findViewById(R.id.editName);
+        final EditText txtName = (EditText) editDialog.findViewById(R.id.editName);
         txtName.setText(currentTask.get_name());
-        final String name = txtName.getText().toString();
+//        String name = txtName.getText().toString();
 
-        EditText txtDescription = (EditText) editDialog.findViewById(R.id.editDescription);
+        final EditText txtDescription = (EditText) editDialog.findViewById(R.id.editDescription);
         txtDescription.setText(currentTask.get_description());
-        final String description = txtDescription.getText().toString();
+//        String description = txtDescription.getText().toString();
 
-        EditText txtDuration = (EditText) editDialog.findViewById(R.id.editDuration);
+        final EditText txtDuration = (EditText) editDialog.findViewById(R.id.editDuration);
         String sDuration = String.valueOf(currentTask.get_duration());
         txtDuration.setText(sDuration);
-        int duration = currentTask.get_duration();
 
-        Spinner spinUnits = (Spinner) editDialog.findViewById(R.id.editUnits);
+        // Used to populate assigned users spinner with names in datebase.
+        dBR = FirebaseDatabase.getInstance().getReference();
+        dBR.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> listNames = new ArrayList<String>();
+
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                    String fname = areaSnapshot.child("name").getValue(String.class);
+                    listNames.add(fname);
+                }
+                listNames.add(0, "");
+
+                Spinner nameSpinner = (Spinner) editDialog.findViewById(R.id.assignedUserSpinner2);
+                ArrayAdapter<String> fnameAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, listNames);
+
+                fnameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                nameSpinner.setAdapter(fnameAdapter);
+
+                for(int i = 0; i<listNames.size(); i++){
+                    String comparable = nameSpinner.getItemAtPosition(i).toString();
+                    if(comparable.equals(currentTask._assignee)){
+                        nameSpinner.setSelection(i);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final Spinner spinAssignee = (Spinner) editDialog.findViewById(R.id.assignedUserSpinner2);
+
+        final Spinner spinUnits = (Spinner) editDialog.findViewById(R.id.editUnits);
         for(int i = 0; i < spinUnits.getAdapter().getCount(); i++){
             String current = spinUnits.getItemAtPosition(i).toString();
             if(current.equals(currentTask.get_durationUnits())){
                 spinUnits.setSelection(i);
             }
         }
-        final String units = spinUnits.getSelectedItem().toString();
+        String units = spinUnits.getSelectedItem().toString();
 
-        Spinner spinRepeat = (Spinner) editDialog.findViewById(R.id.editRepeat);
+        final Spinner spinRepeat = (Spinner) editDialog.findViewById(R.id.editRepeat);
         for(int i = 0; i < spinRepeat.getAdapter().getCount(); i++){
             String current = spinRepeat.getItemAtPosition(i).toString();
             if(current.equals(currentTask.get_repeat())){
                 spinRepeat.setSelection(i);
             }
         }
-        final String repeat = spinRepeat.getSelectedItem().toString();
 
-        EditText txtPoints = (EditText) editDialog.findViewById(R.id.editPoints);
+        final EditText txtPoints = (EditText) editDialog.findViewById(R.id.editPoints);
         String sPoints = String.valueOf(currentTask.get_points());
         txtPoints.setText(sPoints);
-        int points = currentTask.get_points();
 
-        Button btnDueDate = (Button) editDialog.findViewById(R.id.editDueDate);
-        btnDueDate.setText(currentTask.get_dueDate());
-        final String dueDate = btnDueDate.getText().toString();
+        final Button btnDueDate = (Button) editDialog.findViewById(R.id.editDueDate);
+        btnEditDueDate = btnDueDate;
+        btnEditDueDate.setText(currentTask.get_dueDate());
 
-        Switch switchStatus = (Switch) editDialog.findViewById(R.id.editStatus);
-        String status = "";
 
-        if(switchStatus.isActivated()){
-            status = "C";
-        }else{
-            status = "I";
+        final Switch switchStatus = (Switch) editDialog.findViewById(R.id.editStatus);
+
+        if(currentTask.get_status().equals("C")){
+            switchStatus.setChecked(true);
         }
-        final String status2 = status;
-        try{
 
-            points = Integer.parseInt(txtPoints.getText().toString());
-            duration = Integer.parseInt(txtDuration.getText().toString());
-
-        }catch(Exception e){
-
-        }
-        final int points2 = points;
-        final int duration2 = duration;
 
         Button btnUpdate = (Button) editDialog.findViewById(R.id.btnUpdate);
+
+
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Task updatedTask = new Task(currentTask.get_id(), currentTask.get_assignee(), currentTask.get_resources(), description,duration2,name,points2,currentTask.get_group(),dueDate, units,status2,repeat);
+
+                String assignee = spinAssignee.getSelectedItem().toString();
+                //RESOURCES
+                String description = txtDescription.getText().toString();
+                int duration = 0;
+                String name = txtName.getText().toString();
+                int points = 0;
+                try{
+                    duration = Integer.parseInt(txtDuration.getText().toString());
+                    points = Integer.parseInt(txtPoints.getText().toString());
+
+                }catch (Exception e){
+
+                }
+                String dueDate = btnDueDate.getText().toString();
+                String units = spinUnits.getSelectedItem().toString();
+                String status = "";
+                if(switchStatus.isChecked()){
+                    status = "C";
+                    Log.d("STATUS-TRUE: ",status);
+                }else{
+                    status = "I";
+                    Log.d("STATUS-FALSE: ",status);
+                }
+                String repeat = spinRepeat.getSelectedItem().toString();
+
+
+
+                updateTask(currentTask.get_id(), assignee, currentTask.get_resources(), description,
+                        duration,name,points,dueDate,
+                        units,status,repeat);
+                editDialog.dismiss();
             }
         });
 
     }
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
+
+    }
+    public void updateTask(String id, String assignee, String ressources,
+                           String description, int duration, String name, int points, String dueDate, String units, String status, String repeat){
+
+
+        //Update Task
+        DatabaseReference dRT = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
+        Task updatedTask = new Task(id,assignee,ressources,description,duration,name,points,dueDate,units,status,repeat);
+        dRT.setValue(updatedTask);
+
+        //If task completed add points to user
+        DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
+
+        if(status.equals("I")){
+            Toast.makeText(getApplicationContext(), "Task Updated", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "Task Completed", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
 
 
 }
