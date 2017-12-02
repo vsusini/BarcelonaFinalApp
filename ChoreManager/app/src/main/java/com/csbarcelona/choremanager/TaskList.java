@@ -23,7 +23,7 @@ public class TaskList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
-        Button btnUser = (Button) findViewById(R.id.btnUser);
+        Button btnMenu = (Button) findViewById(R.id.btnMenu);
         Button btnAdd = (Button) findViewById(R.id.btnAddTask);
 
 
@@ -78,9 +78,15 @@ public class TaskList extends AppCompatActivity {
         });
 
 
-        btnUser.setOnClickListener(new View.OnClickListener(){
+        btnMenu.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Toast.makeText(TaskList.this, "Moving to user Page", Toast.LENGTH_LONG).show();
+                //Toast.makeText(TaskList.this, "Moving to user Page", Toast.LENGTH_LONG).show();
+                // Start new Activity
+
+
+                    Intent myIntent = new Intent(TaskList.this, MenuActivity.class);
+                    startActivity(myIntent);
+
             }
         });
 
