@@ -421,13 +421,14 @@ public class TaskList extends AppCompatActivity {
             //Get Task
             Task task = postSnapshot.getValue(Task.class);
             //add task to list
-            if (task._status.equals("C")) {
+            //Beginning of the filter process.
+            if (task._status.equals("C")) { //Checking to see if a task is completed, if so, should not show.
                 //do nothing because we no longer want to see it.
-            } else if(filterSelection.equals("Parent")){
+            }else if(filterSelection.equals("Parent")){
                 if(task._group.equals("Parent")){
                     taskList.add(task);
                 }
-            } else if (filterSelection.equals("Child")) {
+            }else if (filterSelection.equals("Child")) {
                 if (task._group.equals("Child")) {
                     taskList.add(task);
                 }
@@ -447,7 +448,7 @@ public class TaskList extends AppCompatActivity {
                 if (task._assignee.equals("Nancy")){
                     taskList.add(task);
                 }
-            }else{
+            }else{//Will happen if All or nothing is selected.
                 taskList.add(task);
             }
         }
