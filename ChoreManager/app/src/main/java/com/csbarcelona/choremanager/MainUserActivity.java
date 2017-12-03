@@ -1,4 +1,4 @@
-package com.example.sizum.userlist2;
+package com.csbarcelona.choremanager;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -57,7 +57,7 @@ public class MainUserActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 User user = users.get(i);
-                showUpdateDeleteDialog(user.getName(), user.getDescription());
+                showUpdateDeleteDialog(user.get_name(), user.get_group(), user);
                 return true;
             }
         });
@@ -94,7 +94,7 @@ public class MainUserActivity extends AppCompatActivity {
     }
 
 
-    private void showUpdateDeleteDialog(final String userName, String userDescription) {
+    private void showUpdateDeleteDialog(final String userName, String userDescription, final User currentUser) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -116,7 +116,7 @@ public class MainUserActivity extends AppCompatActivity {
                 String name = editName.getText().toString().trim();
                 String description = editDescription.getText().toString().trim();
                 if (!TextUtils.isEmpty(description)) {
-                    updateUser(userName, description);
+                    updateUser(userName, description, currentUser);
                     b.dismiss();
                 }
             }
@@ -131,11 +131,14 @@ public class MainUserActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUser(String name, String description) {
+    private void updateUser(String name, String group, User currentUser) {
         //getting the specified product reference
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users").child(name);
         //updating product
-        User user = new User(name, description);
+
+        User user = currentUser;
+        user.set_name(name);
+        user.set_group(group);
         dR.setValue(user);
 
         Toast.makeText(getApplicationContext(), "User Updated", Toast.LENGTH_LONG).show();
@@ -153,20 +156,20 @@ public class MainUserActivity extends AppCompatActivity {
     private void addUser() {
         //getting the values to save
         String name = editName.getText().toString().trim();
-        String description = editDescription.getText().toString().trim();
+        String group = editDescription.getText().toString().trim();
 
         //checking if the value is provided
         if (!TextUtils.isEmpty(name)) {
 
             //getting a unique id using push().getKey() method
             //it will create a unique id and we will use it as the Primary Key for our User
-            String username = databaseUsers.push().getKey();
+            String id = databaseUsers.push().getKey();
 
             //creating an User Object
-            User user = new User(username.toString(), description);
+            User user = new User(name,group,0,name+"@gmail.com",id);
 
             //Saving the User
-            databaseUsers.child(username).setValue(user);
+            databaseUsers.child(id).setValue(user);
 
             //setting edittext to blank again
             editName.setText("");

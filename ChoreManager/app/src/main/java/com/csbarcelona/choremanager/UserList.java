@@ -1,4 +1,4 @@
-package com.example.sizum.userlist2;
+package com.csbarcelona.choremanager;
 
 /**
  * Created by sizum on 2017-11-30.
@@ -32,8 +32,8 @@ public class UserList extends ArrayAdapter<User> {
         TextView textViewDescription = (TextView) listViewItem.findViewById(R.id.textViewDescription);
 
         User user = users.get(position);
-        textViewName.setText(user.getName());
-        textViewDescription.setText(String.valueOf(user.getDescription()));
+        textViewName.setText(user.get_name());
+        textViewDescription.setText(String.valueOf(user.get_group()));
         return listViewItem;
     }
 }

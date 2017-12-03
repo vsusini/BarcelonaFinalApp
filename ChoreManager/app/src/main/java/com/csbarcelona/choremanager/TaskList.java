@@ -283,7 +283,7 @@ public class TaskList extends AppCompatActivity {
 
     }
 
-    public void deleteTask(Task task){
+    public void deleteTask(Task task) {
         //Create DB reference
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Tasks").child(task.get_id());
         //Delete task
@@ -380,16 +380,12 @@ public class TaskList extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Task Completed", Toast.LENGTH_LONG).show();
         }
-
     }
 
-<<<<<<< HEAD
-    public String getGroupFromAssignee(String assignee){
-        DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
-=======
+
     public String getGroupFromAssignee(String assignee) {
         final DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
->>>>>>> 4d3165aac040ac18d9ce4580ae370748aee76630
+
         taskAssignee = assignee;
 
         for (int i = 0; i < userList.size(); i++) {
