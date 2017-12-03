@@ -33,6 +33,7 @@ public class TaskList extends AppCompatActivity {
     private static String filterSelection;
     private static int filterCount = 0;
     private static DataSnapshot data;
+    private static List<String> resourceNames;
     //End of it
     public static List<User> userList = new ArrayList<>();
 
@@ -165,7 +166,7 @@ public class TaskList extends AppCompatActivity {
 
         final EditText txtDescription = (EditText) editDialog.findViewById(R.id.editDescription);
         txtDescription.setText(currentTask.get_description());
-//        String description = txtDescription.getText().toString();
+        String description = txtDescription.getText().toString();
 
         final EditText txtDuration = (EditText) editDialog.findViewById(R.id.editDuration);
         String sDuration = String.valueOf(currentTask.get_duration());
@@ -204,6 +205,34 @@ public class TaskList extends AppCompatActivity {
 
             }
         });
+        DatabaseReference dbResource = FirebaseDatabase.getInstance().getReference();
+        MultiSpinner multiResource = (MultiSpinner)editDialog.findViewById(R.id.resource_multi_spinner_edit);
+        dbResource.child("resources").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                resourceNames = new ArrayList<>();
+                String[] selectedArray = currentTask.get_resources().split(",");
+                List<String> selectedResources = new ArrayList<>();
+
+                for(DataSnapshot areaSnapshot: dataSnapshot.getChildren()){
+                    String rname = areaSnapshot.child("resourceName").getValue(String.class);
+                    resourceNames.add(rname);
+                }
+
+                // Set Spinner with resource names from database
+                MultiSpinner multiSpinnerResource = (MultiSpinner) editDialog.findViewById(R.id.resource_multi_spinner_edit);
+                multiSpinnerResource.setItems(resourceNames);
+                for(int i = 0; i<selectedArray.length; i++){
+                    selectedResources.add(selectedArray[i].trim());
+                }
+            multiSpinnerResource.setSelected(selectedResources);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         final Spinner spinAssignee = (Spinner) editDialog.findViewById(R.id.assignedUserSpinner2);
 
         final Spinner spinUnits = (Spinner) editDialog.findViewById(R.id.editUnits);
@@ -232,6 +261,8 @@ public class TaskList extends AppCompatActivity {
         btnEditDueDate.setText(currentTask.get_dueDate());
 
 
+
+
         final Switch switchStatus = (Switch) editDialog.findViewById(R.id.editStatus);
 
         if (currentTask.get_status().equals("C")) {
@@ -256,6 +287,13 @@ public class TaskList extends AppCompatActivity {
 
                 final String assignee = spinAssignee.getSelectedItem().toString();
                 //RESOURCES
+                MultiSpinner multiResource = (MultiSpinner)editDialog.findViewById(R.id.resource_multi_spinner_edit);
+                List<String> selectedResouces = multiResource.getSelectedItems();
+                String resources = "";
+                for(int i = 0; i<selectedResouces.size(); i++){
+                    resources+=selectedResouces.get(i)+",";
+                }
+
                 String description = txtDescription.getText().toString();
                 int duration = 0;
                 final String name = txtName.getText().toString();
@@ -282,7 +320,7 @@ public class TaskList extends AppCompatActivity {
                 //GROUPS
                 String group = getGroupFromAssignee(assignee);
 
-                updateTask(currentTask.get_id(), assignee, currentTask.get_resources(), description,
+                updateTask(currentTask.get_id(), assignee, resources, description,
                         duration, name, points, dueDate,
                         units, status, repeat, group);
                 editDialog.dismiss();

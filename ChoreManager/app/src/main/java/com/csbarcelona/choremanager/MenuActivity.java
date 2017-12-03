@@ -3,6 +3,7 @@ package com.csbarcelona.choremanager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
@@ -72,7 +73,7 @@ public class MenuActivity extends Activity {
         usersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Log.d("USER ERROR:", "hello");
                 Intent myIntent = new Intent(MenuActivity.this, MainUserActivity.class);
                 startActivity(myIntent);
             }

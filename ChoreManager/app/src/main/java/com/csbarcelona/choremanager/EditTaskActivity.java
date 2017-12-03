@@ -18,15 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditTaskActivity extends AppCompatActivity {
-    DatabaseReference dBR;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
-
-
-
 
     }
 
