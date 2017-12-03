@@ -38,8 +38,8 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
 
     @Override
     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item);
+       ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+              android.R.layout.simple_spinner_item);
         setAdapter(adapter);
         if (isChecked) {
             selected[which] = true;
@@ -118,19 +118,6 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
     }
      */
 
-    public void setItems(List <String> items, String allText){
-        this.items = items;
-        this.defaultText = allText;
-        selected = new boolean[items.size()];
-        for(int i = 0; i <selected.length; i++){
-            selected[i] = true;
-        }
-        // all text on the spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item, new String[] { allText });
-        setAdapter(adapter);
-
-    }
 
     public void setItems(List <String> items){
         this.items = items;
@@ -151,9 +138,9 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
     }
 
     public void setSelected(List<String> selection){
-        for(String sel: selection){
+        for(int i = 0; i < selection.size(); i++){
             for(int j = 0; j<items.size(); ++j){
-                if(items.get(j).equals(sel))
+                if(items.get(j).equals(selection.get(i)))
                     selected[j] = true;
             }
         }
@@ -167,7 +154,7 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
 
     }
 
-    public String toString() {
+   public String toString() {
 
         StringBuilder str = new StringBuilder();
 

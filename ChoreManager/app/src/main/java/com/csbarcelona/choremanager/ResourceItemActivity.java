@@ -30,8 +30,8 @@ public class ResourceItemActivity extends AppCompatActivity {
     Button btnDeleteResource;
     EditText resourceName;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    //@Override
+    /**rotected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         databaseResourceItem = FirebaseDatabase.getInstance().getReference("resources");
@@ -42,7 +42,7 @@ public class ResourceItemActivity extends AppCompatActivity {
         btnDeleteResource = (Button) findViewById(R.id.btnDeleteResource);
 
         final String name = resourceName.toString();
-        ;
+
         btnDeleteResource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +51,7 @@ public class ResourceItemActivity extends AppCompatActivity {
         });
     }
 
-    private void deleteResource(String name) {
+    /**private void deleteResource(String name) {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference();
         Query resourceQuery = dR.child("resources").orderByChild("resourceName").equalTo(name);
 
@@ -69,4 +69,5 @@ public class ResourceItemActivity extends AppCompatActivity {
             }
         });
     }
+     */
 }

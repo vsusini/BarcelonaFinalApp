@@ -7,7 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+
+import java.util.Map;
 
 public class MenuActivity extends Activity {
 
@@ -62,6 +65,18 @@ public class MenuActivity extends Activity {
                 Intent myIntent = new Intent(MenuActivity.this, CalendarActivity.class);
                 startActivity(myIntent);
             }
+        });
+
+        usersBtn = (Button)findViewById(R.id.btn_users);
+
+        usersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent myIntent = new Intent(MenuActivity.this, MainUserActivity.class);
+                startActivity(myIntent);
+            }
+
         });
 
     }

@@ -1,5 +1,7 @@
 package com.csbarcelona.choremanager;
 
+import android.app.DatePickerDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CalendarView;
@@ -7,7 +9,7 @@ import android.widget.CalendarView;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CalendarActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener{
 
     CalendarView calendarView;
 
@@ -27,9 +29,10 @@ public class CalendarActivity extends AppCompatActivity {
         month = d.getMonth();
         day = d.getDay();
 
-
-
     }
 
+    @Override
+    public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int date) {
 
+    }
 }

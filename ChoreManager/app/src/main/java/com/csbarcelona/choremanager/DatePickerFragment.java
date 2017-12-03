@@ -38,7 +38,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        // Once teh date is set, the date will display on the button
+        // Once the date is set, the date will display on the button
         String activity = getActivity().toString();
 
         String sMonth = String.valueOf(month+1);

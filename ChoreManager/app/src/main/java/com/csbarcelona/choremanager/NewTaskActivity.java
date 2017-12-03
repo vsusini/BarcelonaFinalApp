@@ -32,6 +32,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
     int userSpinnerPosition;
     DatabaseReference dbResource;
+    String resourceDefaultText;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +77,10 @@ public class NewTaskActivity extends AppCompatActivity {
                 }
 
                 // Set Spinner with resource names from database
+                resourceDefaultText = "";
                 MultiSpinner multiSpinnerResource = (MultiSpinner) findViewById(R.id.resource_multi_spinner);
                multiSpinnerResource.setItems(resourceNames);
+
 
             }
             @Override

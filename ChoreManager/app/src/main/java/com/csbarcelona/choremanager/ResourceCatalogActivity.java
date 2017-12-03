@@ -64,7 +64,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Resource resource = resources.get(i);
                 //showDeleteDialog(resource.getResourceName());
-                showDeleteDialog(resource);
+                showDeleteDialog(resource.getResourceName());
                 return true;
             }
         });
@@ -104,15 +104,16 @@ public class ResourceCatalogActivity extends AppCompatActivity {
         });
     }
 
-   /* private void showDeleteDialog(final String resourceName) {
 
+    private void showDeleteDialog(final String resourceName){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.resource_item_layout, null);
+        final View dialogView = inflater.inflate(R.layout.delete_resouce_dialog, null);
         dialogBuilder.setView(dialogView);
 
-        final EditText editTextName = (EditText) dialogView.findViewById(R.id.resourceName);
+        // final EditText editTextName = (EditText) dialogView.findViewById(R.id.resourceName);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.btnDeleteResource);
+
         dialogBuilder.setTitle(resourceName);
         final AlertDialog b = dialogBuilder.create();
         b.show();
@@ -121,30 +122,6 @@ public class ResourceCatalogActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 deleteResource(resourceName);
-                b.dismiss();
-            }
-        });
-
-
-    }
-    */
-
-    private void showDeleteDialog(final Resource resource){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.resource_item_layout, null);
-        dialogBuilder.setView(dialogView);
-
-        final EditText editTextName = (EditText) dialogView.findViewById(R.id.resourceName);
-        final Button buttonDelete = (Button) dialogView.findViewById(R.id.btnDeleteResource);
-        dialogBuilder.setTitle(resource.getResourceName());
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
-
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteResource(resource.getResourceName());
                 b.dismiss();
             }
         });
@@ -180,7 +157,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
 
     }
 
-    private void deleteResource(String name) {
+    private void deleteResource(String name){
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference();
         Query resourceQuery = dR.child("resources").orderByChild("resourceName").equalTo(name);
 
@@ -198,34 +175,6 @@ public class ResourceCatalogActivity extends AppCompatActivity {
             }
         });
 
-
-        // removing resource
-        /** dR.removeValue();
-         Toast.makeText(getApplicationContext(), "NOT IMPLEMENTED YET", Toast.LENGTH_LONG).show();
-         return true;
-         */
-
-
     }
 
-    /*private void deleteResource(Resource resource){
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference();
-        Query resourceQuery = dR.child("resources").orderByChild("resourceName").equalTo(resource.getResourceName());
-
-        resourceQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot delSnapshot : dataSnapshot.getChildren()) {
-                    delSnapshot.getRef().removeValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-    */
 }
