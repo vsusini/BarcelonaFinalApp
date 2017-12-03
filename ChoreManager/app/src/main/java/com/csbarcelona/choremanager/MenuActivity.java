@@ -68,12 +68,17 @@ public class MenuActivity extends Activity {
             }
         });
 
+
+        //L Locate the User button in the activity menu
         usersBtn = (Button)findViewById(R.id.btn_users);
 
+        // Capture button clicks
         usersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("USER ERROR:", "hello");
+
+                // Star Calendar Activty
+
                 Intent myIntent = new Intent(MenuActivity.this, MainUserActivity.class);
                 startActivity(myIntent);
             }
