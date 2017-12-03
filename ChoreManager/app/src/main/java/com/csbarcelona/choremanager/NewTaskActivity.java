@@ -27,7 +27,7 @@ import java.util.List;
 public class NewTaskActivity extends AppCompatActivity {
 
     DatabaseReference dR;
-    final int numberOfResources = 6;
+    int numberOfResources;
     DatabaseReference dBR;
 
     int userSpinnerPosition;
@@ -64,8 +64,9 @@ public class NewTaskActivity extends AppCompatActivity {
 
             }
         });
+        dbResource = FirebaseDatabase.getInstance().getReference();
 
-        /**dbResource.child("resources").addValueEventListener(new ValueEventListener() {
+       dbResource.child("resources").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> resourceNames = new ArrayList<>();
@@ -75,25 +76,15 @@ public class NewTaskActivity extends AppCompatActivity {
                     resourceNames.add(rname);
                 }
 
-
-                Spinner resourceSpinner = (Spinner)findViewById(R.id.resource_spinner);
-                ArrayAdapter<String> rnameAdapter = new ArrayAdapter<String>(NewTaskActivity.this, android.R.layout.select_dialog_multichoice,resourceNames);
-
-                rnameAdapter.setDropDownViewResource(android.R.layout.select_dialog_multichoice);
-                resourceSpinner.setAdapter(rnameAdapter);
-
-
+                // Set Spinner with resource names from database
+                MultiSpinner multiSpinnerResource = (MultiSpinner) findViewById(R.id.resource_multi_spinner);
+                multiSpinnerResource.setItems(resourceNames);
             }
-
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-         */
-
-
 
         dR = FirebaseDatabase.getInstance().getReference("Tasks");
         Button btnComplete = (Button) findViewById(R.id.btnComplete);
@@ -129,26 +120,28 @@ public class NewTaskActivity extends AppCompatActivity {
                 Spinner spinAssigned = (Spinner) findViewById(R.id.assignedUserSpinner);
                 String assigned = spinAssigned.getSelectedItem().toString();
 
+
+                MultiSpinner multiSpinnerResource = (MultiSpinner) findViewById(R.id.resource_multi_spinner);
+                List <String> spinnerResources = new ArrayList<>();
+                spinnerResources = multiSpinnerResource.getSelectedItems();
+
                 String resources = "";
-                CheckBox[] chkRes = {(CheckBox) findViewById(R.id.chkRes1), (CheckBox) findViewById(R.id.chkRes2), (CheckBox) findViewById(R.id.chkRes3), (CheckBox) findViewById(R.id.chkRes4), (CheckBox) findViewById(R.id.chkRes5), (CheckBox) findViewById(R.id.chkRes6)};
 
-                for (int i = 0; i < numberOfResources; i++) {
+                int numberOfResources = spinnerResources.size();
 
-                    if (chkRes[i].isChecked()) {
-                        if (i != numberOfResources) {
-                            resources += chkRes[i].getText().toString().trim() + ",";
-                        } else {
-                            resources += chkRes[i].getText().toString().trim();
-                        }
+                for(int i = 0; i < numberOfResources-1; i++)
+                    resources += spinnerResources.get(i) + ", ";
 
-                    }
-                }
+                resources = resources + spinnerResources.get(numberOfResources-1);
+
+
 
                 Spinner spinUnits = (Spinner) findViewById(R.id.duration_spinner);
                 String units = spinUnits.getSelectedItem().toString();
 
-                Spinner spinRepeat = (Spinner) findViewById(R.id.recurring_spinner);
+               Spinner spinRepeat = (Spinner) findViewById(R.id.recurring_spinner);
                 String repeat = spinRepeat.getSelectedItem().toString();
+
 
 
                 //GROUP

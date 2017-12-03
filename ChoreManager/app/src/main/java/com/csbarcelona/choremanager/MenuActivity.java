@@ -14,6 +14,7 @@ public class MenuActivity extends Activity {
     Button taskBtn;
     Button resourceBtn;
     Button usersBtn;
+    Button calendarBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +44,26 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                //Start TaskListActivity.class
+                //Start ResourceCatalogActivity.class
                 Intent myIntent = new Intent(MenuActivity.this, ResourceCatalogActivity.class);
                 startActivity(myIntent);
             }
         });
+
+        //Locate the Calendar button the the activity menu
+        calendarBtn = (Button)findViewById(R.id.btn_calendar);
+
+        // Capture button clicks
+        calendarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Start CalendarActivity.class
+                Intent myIntent = new Intent(MenuActivity.this, CalendarActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
     }
 
 

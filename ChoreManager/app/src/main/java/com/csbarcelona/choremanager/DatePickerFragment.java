@@ -1,7 +1,8 @@
 package com.csbarcelona.choremanager;
 
 /**
- * Created by Bukky on 11/30/2017.
+ * Created by Bukola on 11/30/2017.
+ * Inspired by: https://stackoverflow.com/questions/11527051/get-date-from-datepicker-using-dialogfragment
  */
 
 import android.app.DatePickerDialog;
@@ -37,9 +38,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        // Do something with the date chosen by the user
-
-
+        // Once teh date is set, the date will display on the button
         String activity = getActivity().toString();
 
         String sMonth = String.valueOf(month+1);

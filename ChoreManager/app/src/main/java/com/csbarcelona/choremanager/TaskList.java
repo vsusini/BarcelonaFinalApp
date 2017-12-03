@@ -235,7 +235,7 @@ public class TaskList extends AppCompatActivity {
                 String repeat = spinRepeat.getSelectedItem().toString();
 
                 //GROUPS
-                String group = getGroupFromAssignee(assignee,id);
+                String group = getGroupFromAssignee(assignee);
 
                 updateTask(currentTask.get_id(), assignee, currentTask.get_resources(), description,
                         duration, name, points, dueDate,
@@ -332,7 +332,7 @@ public class TaskList extends AppCompatActivity {
 
     }
 
-    public String getGroupFromAssignee(String assignee, String id){
+    public String getGroupFromAssignee(String assignee){
         DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
         taskAssignee = assignee;
 

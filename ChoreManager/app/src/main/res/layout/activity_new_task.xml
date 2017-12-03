@@ -226,86 +226,13 @@
                     android:orientation="horizontal">
 
 
-                    <Spinner
-                        android:id="@+id/resource_spinner"
+                    <com.csbarcelona.choremanager.MultiSpinner
+                        android:id="@+id/resource_multi_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:spinnerMode="dialog" />
                 </LinearLayout>
-
-                <GridLayout
-                    android:id="@+id/checkBoxGrid02"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:columnCount="3"
-                    android:orientation="vertical"
-                    android:rowCount="2">
-
-                    <!--- This is hardcoded the resource names will need to be changed -->
-
-                    <CheckBox
-                        android:id="@+id/chkRes1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_columnWeight="1"
-                        android:layout_row="0"
-                        android:text="Mop"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/chkRes2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_columnWeight="1"
-                        android:layout_row="0"
-                        android:text="Bucket"
-                        android:textSize="18sp" />
-
-
-                    <CheckBox
-                        android:id="@+id/chkRes4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_columnWeight="1"
-                        android:layout_row="1"
-                        android:text="Sponge"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/chkRes5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_columnWeight="1"
-                        android:layout_row="1"
-                        android:text="Soap"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/chkRes6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:layout_columnWeight="1"
-                        android:layout_row="1"
-                        android:text="Broom"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/chkRes3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:layout_columnWeight="1"
-                        android:layout_row="0"
-                        android:text="Dustpan"
-                        android:textSize="18sp" />
-
-                </GridLayout>
 
                 <Button
                     android:id="@+id/btnComplete"
