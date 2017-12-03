@@ -397,6 +397,7 @@ public class TaskList extends AppCompatActivity {
     }
 
 
+
     public String getGroupFromAssignee(String assignee) {
         final DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -456,6 +457,7 @@ public class TaskList extends AppCompatActivity {
         list.setAdapter(customAdapter);
     }
 }
+
 
 
 

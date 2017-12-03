@@ -16,8 +16,8 @@ import java.util.List;
  * Inspired but @Destil: https://stackoverflow.com/questions/5015686/android-spinner-with-multiple-choice
  */
 
-public class MultiSpinner extends AppCompatSpinner implements
-        DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener {
+public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoiceClickListener{
+        //DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener {
 
     private List<String> items;
     private boolean[] selected;
@@ -38,13 +38,22 @@ public class MultiSpinner extends AppCompatSpinner implements
 
     @Override
     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-        if (isChecked)
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item);
+        setAdapter(adapter);
+        if (isChecked) {
             selected[which] = true;
+            adapter.clear();
+            adapter.add(toString());
+
+        }
         else
             selected[which] = false;
+
+
     }
 
-    @Override
+
     public void onCancel(DialogInterface dialog) {
         // refresh text on spinner
         StringBuffer spinnerBuffer = new StringBuffer();
@@ -85,7 +94,7 @@ public class MultiSpinner extends AppCompatSpinner implements
                         dialog.cancel();
                     }
                 });
-        builder.setOnCancelListener(this);
+        //builder.setOnCancelListener(this);
         builder.show();
         return true;
     }
@@ -157,4 +166,26 @@ public class MultiSpinner extends AppCompatSpinner implements
     public void onItemsSelected(boolean[] selected){
 
     }
+
+    public String toString() {
+
+        StringBuilder str = new StringBuilder();
+
+
+        boolean found = false;
+
+        for (int i = 0; i < items.size(); i++) {
+            if (selected[i]== true) {
+                if (found) {
+                    str.append(", ");
+                }
+                found = true;
+
+                str.append(items.get(i));
+            }
+        }
+
+        return str.toString();
+    }
+
 }
