@@ -33,7 +33,6 @@ public class NewTaskActivity extends AppCompatActivity {
     int userSpinnerPosition;
     DatabaseReference dbResource;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
@@ -85,6 +84,14 @@ public class NewTaskActivity extends AppCompatActivity {
 
             }
         });
+<<<<<<< HEAD
+=======
+
+         */
+
+
+>>>>>>> 4d3165aac040ac18d9ce4580ae370748aee76630
+
 
         dR = FirebaseDatabase.getInstance().getReference("Tasks");
         Button btnComplete = (Button) findViewById(R.id.btnComplete);
@@ -142,10 +149,18 @@ public class NewTaskActivity extends AppCompatActivity {
                Spinner spinRepeat = (Spinner) findViewById(R.id.recurring_spinner);
                 String repeat = spinRepeat.getSelectedItem().toString();
 
+<<<<<<< HEAD
 
 
+=======
+                String group = "";
+>>>>>>> 4d3165aac040ac18d9ce4580ae370748aee76630
                 //GROUP
-                String group = "Child";
+                for(int i=0; i<TaskList.userList.size();i++){
+                    if(TaskList.userList.get(i).get_name().equals(assigned)){
+                        group = TaskList.userList.get(i).get_group();
+                    }
+                }
 
                 //Check if right fields are filled out
 

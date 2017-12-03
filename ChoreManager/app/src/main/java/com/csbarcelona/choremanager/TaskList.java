@@ -25,11 +25,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TaskList extends AppCompatActivity {
-    String[] taskNames, taskDescription;
     private List<Task> taskList = new ArrayList<>();
     public static Button btnEditDueDate;
     private static String taskAssignee;
     private static String taskGroup;
+    public static List<User> userList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,29 @@ public class TaskList extends AppCompatActivity {
                 TaskCustomAdapter customAdapter = new TaskCustomAdapter(com.csbarcelona.choremanager.TaskList.this, taskList);
                 ListView list = (ListView) findViewById(R.id.list);
                 list.setAdapter(customAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        final DatabaseReference databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
+        //Load tasks from database
+        databaseUsers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Clear List of tasks
+                userList.clear();
+
+                //itterate through all tasks
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //Get Task
+                    User user = postSnapshot.getValue(User.class);
+                    //add task to list
+                    userList.add(user);
+                }
             }
 
             @Override
@@ -203,7 +226,15 @@ public class TaskList extends AppCompatActivity {
 
 
         Button btnUpdate = (Button) editDialog.findViewById(R.id.btnUpdate);
+        Button btnDelete = (Button) editDialog.findViewById(R.id.btnDelete);
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteTask(currentTask);
+                editDialog.dismiss();
+            }
+        });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,6 +283,14 @@ public class TaskList extends AppCompatActivity {
 
     }
 
+    public void deleteTask(Task task){
+        //Create DB reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Tasks").child(task.get_id());
+        //Delete task
+        dR.removeValue();
+        Toast.makeText(getApplicationContext(), "Task Deleted", Toast.LENGTH_LONG).show();
+    }
+
     public void updateTask(String id, String assignee, String ressources,
                            String description, int duration, final String name, int points, String dueDate, String units, String status, String repeat, String group) {
         //Update Task
@@ -268,7 +307,7 @@ public class TaskList extends AppCompatActivity {
                 DatabaseReference dRT2 = FirebaseDatabase.getInstance().getReference("Tasks");
                 Calendar c = Calendar.getInstance();
                 int month = 0, day = 0, year = 0;
-
+                //Get Dat Format, format date for display
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                 Date repeatDate = new Date();
                 try {
@@ -279,13 +318,13 @@ public class TaskList extends AppCompatActivity {
                 } catch (Exception e) {
 
                 }
-
+                //Create new instance of same task
                 Task repeatTask = updatedTask;
 
                 Calendar cRepeat = Calendar.getInstance();
                 cRepeat.setTime(repeatDate);
 
-
+                //Move due date accordingly
                 if (repeat.equals("Daily")) {
                     cRepeat.add(Calendar.DAY_OF_MONTH, 1);
                 } else if (repeat.equals("Weekly")) {
@@ -303,7 +342,7 @@ public class TaskList extends AppCompatActivity {
                 String sMonth = String.valueOf(month);
 
                 String sDay = String.valueOf(day);
-
+                //For display purposes
                 if (sMonth.length() < 2) {
                     sMonth = "0" + (month);
                 }
@@ -312,7 +351,7 @@ public class TaskList extends AppCompatActivity {
                 }
 
                 String repeatDueDate = (sMonth + "/" + sDay + "/" + year);
-
+                //Set values
                 repeatTask.set_dueDate(repeatDueDate);
                 String newID = dRT.push().getKey();
                 repeatTask.set_status("I");
@@ -320,6 +359,18 @@ public class TaskList extends AppCompatActivity {
 
                 dRT2.child(newID).setValue(repeatTask);
             }
+
+            //Update Points accordingly
+            User updatedUser = new User();
+            for (int i = 0; i < userList.size(); i++) {
+                if (userList.get(i).get_name().equals(assignee)) {
+                    updatedUser = userList.get(i);
+                }
+            }
+
+            updatedUser.set_totalPoints(updatedUser.get_totalPoints() + points);
+            dRU.child(updatedUser.get_id()).setValue(updatedUser);
+
 
         }
 
@@ -332,29 +383,20 @@ public class TaskList extends AppCompatActivity {
 
     }
 
+<<<<<<< HEAD
     public String getGroupFromAssignee(String assignee){
         DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
+=======
+    public String getGroupFromAssignee(String assignee) {
+        final DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
+>>>>>>> 4d3165aac040ac18d9ce4580ae370748aee76630
         taskAssignee = assignee;
 
-        dRU.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
-                    String fname = areaSnapshot.child("_name").getValue(String.class);
-
-                    if (fname.equals(taskAssignee)) {
-                        taskGroup = areaSnapshot.child("_group").getValue(String.class);
-                    }
-                }
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).get_name().equals(taskAssignee)) {
+                taskGroup = userList.get(i).get_group();
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        }
         return taskGroup;
     }
 }
