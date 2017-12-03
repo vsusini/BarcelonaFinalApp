@@ -29,6 +29,11 @@ public class TaskList extends AppCompatActivity {
     public static Button btnEditDueDate;
     private static String taskAssignee;
     private static String taskGroup;
+    //Addition for Filter Uses - Vince
+    private static String filterSelection;
+    private static int filterCount = 0;
+    private static DataSnapshot data;
+    //End of it
     public static List<User> userList = new ArrayList<>();
 
     @Override
@@ -37,6 +42,28 @@ public class TaskList extends AppCompatActivity {
         setContentView(R.layout.activity_task_list);
         Button btnMenu = (Button) findViewById(R.id.btnMenu);
         Button btnAdd = (Button) findViewById(R.id.btnAddTask);
+        Spinner spinner = (Spinner) findViewById(R.id.taskGroupSpinner);
+        ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(this,R.array.task_group_array,android.R.layout.simple_spinner_item);
+        filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(filterAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                filterSelection = (String) adapterView.getItemAtPosition(i);
+                if (filterCount == 0){
+                    Toast.makeText(getApplicationContext(),"Showing All",Toast.LENGTH_LONG).show();
+                    filterCount++;
+                } else {
+                    Toast.makeText(getApplicationContext(),"Showing "+filterSelection,Toast.LENGTH_LONG).show();
+                    updateList(data);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         final DatabaseReference databaseTasks = FirebaseDatabase.getInstance().getReference("Tasks");
@@ -44,20 +71,7 @@ public class TaskList extends AppCompatActivity {
         databaseTasks.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Clear List of tasks
-                taskList.clear();
-
-                //itterate through all tasks
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    //Get Task
-                    Task task = postSnapshot.getValue(Task.class);
-                    //add task to list
-                    taskList.add(task);
-                }
-                //Display tasks
-                TaskCustomAdapter customAdapter = new TaskCustomAdapter(com.csbarcelona.choremanager.TaskList.this, taskList);
-                ListView list = (ListView) findViewById(R.id.list);
-                list.setAdapter(customAdapter);
+                updateList(dataSnapshot);
             }
 
             @Override
@@ -394,6 +408,52 @@ public class TaskList extends AppCompatActivity {
             }
         }
         return taskGroup;
+    }
+
+    public void updateList(DataSnapshot dataSnapshot){
+        //Clear List of tasks
+        data = dataSnapshot;
+        taskList.clear();
+
+        //itterate through all tasks
+        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+            //Get Task
+            Task task = postSnapshot.getValue(Task.class);
+            //add task to list
+            if (task._status.equals("C")) {
+                //do nothing because we no longer want to see it.
+            } else if(filterSelection.equals("Parent")){
+                if(task._group.equals("Parent")){
+                    taskList.add(task);
+                }
+            } else if (filterSelection.equals("Child")) {
+                if (task._group.equals("Child")) {
+                    taskList.add(task);
+                }
+            }else if(filterSelection.equals("Ally")) {
+                if (task._assignee.equals("Ally")) {
+                    taskList.add(task);
+                }
+            }else if (filterSelection.equals("Bill")){
+                if (task._assignee.equals("Bill")){
+                    taskList.add(task);
+                }
+            }else if (filterSelection.equals("Ryan")){
+                if (task._assignee.equals("Ryan")){
+                    taskList.add(task);
+                }
+            }else if (filterSelection.equals("Nancy")){
+                if (task._assignee.equals("Nancy")){
+                    taskList.add(task);
+                }
+            }else{
+                taskList.add(task);
+            }
+        }
+        //Display tasks
+        TaskCustomAdapter customAdapter = new TaskCustomAdapter(com.csbarcelona.choremanager.TaskList.this, taskList);
+        ListView list = (ListView) findViewById(R.id.list);
+        list.setAdapter(customAdapter);
     }
 }
 
