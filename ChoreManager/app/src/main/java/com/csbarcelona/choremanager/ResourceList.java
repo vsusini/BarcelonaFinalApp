@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import java.util.List;
 public class ResourceList extends ArrayAdapter<Resource> {
     private Activity context;
     List<Resource> resources;
+    Button delResource;
 
     public ResourceList(Activity context, List<Resource> resources){
         super(context, android.R.layout.select_dialog_multichoice, resources);
@@ -38,4 +40,6 @@ public class ResourceList extends ArrayAdapter<Resource> {
 
           return listViewItem;
       }
+
+
 }

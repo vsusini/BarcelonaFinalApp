@@ -77,7 +77,8 @@ public class NewTaskActivity extends AppCompatActivity {
 
                 // Set Spinner with resource names from database
                 MultiSpinner multiSpinnerResource = (MultiSpinner) findViewById(R.id.resource_multi_spinner);
-                multiSpinnerResource.setItems(resourceNames);
+               multiSpinnerResource.setItems(resourceNames);
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -123,9 +124,10 @@ public class NewTaskActivity extends AppCompatActivity {
                 String assigned = spinAssigned.getSelectedItem().toString();
 
 
-                MultiSpinner multiSpinnerResource = (MultiSpinner) findViewById(R.id.resource_multi_spinner);
+               MultiSpinner multiSpinnerResource = (MultiSpinner) findViewById(R.id.resource_multi_spinner);
                 List <String> spinnerResources = new ArrayList<>();
                 spinnerResources = multiSpinnerResource.getSelectedItems();
+
 
                 String resources = "";
 
@@ -138,11 +140,15 @@ public class NewTaskActivity extends AppCompatActivity {
 
 
 
+
+
+
                 Spinner spinUnits = (Spinner) findViewById(R.id.duration_spinner);
                 String units = spinUnits.getSelectedItem().toString();
 
                Spinner spinRepeat = (Spinner) findViewById(R.id.recurring_spinner);
                 String repeat = spinRepeat.getSelectedItem().toString();
+
 
                 String group = "";
 
