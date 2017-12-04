@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sizum.userlist2.UserList">
+    tools:context="com.csbarcelona.choremanager.UserList">
 
     <EditText
         android:id="@+id/editName"
@@ -13,19 +13,19 @@
         android:layout_height="wrap_content"
         android:hint="Enter name" />
 
-    <EditText
-        android:id="@+id/editDescription"
+    <Spinner
+        android:id="@+id/userGroupSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editName"
-        android:hint="Enter description" />
+        android:entries="@array/task_group_array" />
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editDescription"
+        android:layout_below="@+id/userGroupSpinner"
         android:layout_centerHorizontal="true"
         android:text="Add User" />
 

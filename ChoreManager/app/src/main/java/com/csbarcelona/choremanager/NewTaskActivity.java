@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -52,7 +51,7 @@ public class NewTaskActivity extends AppCompatActivity {
                 }
                 listNames.add(0, "");
 
-                Spinner nameSpinner = (Spinner) findViewById(R.id.assignedUserSpinner);
+                Spinner nameSpinner = (Spinner) findViewById(R.id.userGroupSpinner);
                 ArrayAdapter<String> fnameAdapter = new ArrayAdapter<String>(NewTaskActivity.this, android.R.layout.simple_spinner_item, listNames);
 
                 fnameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -123,7 +122,7 @@ public class NewTaskActivity extends AppCompatActivity {
                 Button btnDueDate = (Button) findViewById(R.id.btnDueDate);
                 String dueDate = btnDueDate.getText().toString().trim();
 
-                Spinner spinAssigned = (Spinner) findViewById(R.id.assignedUserSpinner);
+                Spinner spinAssigned = (Spinner) findViewById(R.id.userGroupSpinner);
                 String assigned = spinAssigned.getSelectedItem().toString();
 
 

@@ -36,7 +36,7 @@ public class MainUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_main);
 
-        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
+        databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
 
         editName = (EditText) findViewById(R.id.editName);
         editDescription = (EditText) findViewById(R.id.editDescription);
