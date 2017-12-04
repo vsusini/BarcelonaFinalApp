@@ -86,9 +86,9 @@ public class ResourceCatalogActivity extends AppCompatActivity {
 
                 // iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    // getting product
+                    // getting resource
                     Resource resource = postSnapshot.getValue(Resource.class);
-                    // adding product to the list
+                    // adding resource to the list
                     resources.add(resource);
                 }
                 // creating adapter

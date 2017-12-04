@@ -29,7 +29,7 @@
 
     <string-array name="array_for_resource_list">
         <item>All</item>
-        <item>Paren</item>
+        <item>Parent</item>
         <item>Child</item>
 
     </string-array>
