@@ -20,10 +20,9 @@ import java.util.List;
 public class ResourceList extends ArrayAdapter<Resource> {
     private Activity context;
     List<Resource> resources;
-    Button delResource;
 
     public ResourceList(Activity context, List<Resource> resources){
-        super(context, android.R.layout.select_dialog_multichoice, resources);
+        super(context, R.layout.resource_item_layout, resources);
         this.context = context;
         this.resources = resources;
     }
@@ -40,6 +39,4 @@ public class ResourceList extends ArrayAdapter<Resource> {
 
           return listViewItem;
       }
-
-
 }
