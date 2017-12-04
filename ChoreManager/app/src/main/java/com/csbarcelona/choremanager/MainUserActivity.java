@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +26,7 @@ import java.util.List;
 public class MainUserActivity extends AppCompatActivity {
 
     EditText editName;
-    EditText editDescription;
+    Spinner userGroupSpinner;
     Button buttonAddUser;
     ListView listViewUsers;
     DatabaseReference databaseUsers;
@@ -39,7 +40,7 @@ public class MainUserActivity extends AppCompatActivity {
         databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
 
         editName = (EditText) findViewById(R.id.editName);
-        editDescription = (EditText) findViewById(R.id.editDescription);
+        userGroupSpinner = (Spinner) dialogView.findViewById(R.id.userGroupSpinner);
         listViewUsers = (ListView) findViewById(R.id.listViewUsers);
         buttonAddUser = (Button) findViewById(R.id.addButton);
 
@@ -94,7 +95,7 @@ public class MainUserActivity extends AppCompatActivity {
     }
 
 
-    private void showUpdateDeleteDialog(final String userName, String userDescription, final User currentUser) {
+    private void showUpdateDeleteDialog(final String userName, Spinner userUpdateSpinner, final User currentUser) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -102,7 +103,7 @@ public class MainUserActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         final EditText editName = (EditText) dialogView.findViewById(R.id.editName);
-        final EditText editDescription = (EditText) dialogView.findViewById(R.id.editDescription);
+        final Spinner userUpdateSpinner = (Spinner) dialogView.findViewById(R.id.updateUserSpinner);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateUser);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteUser);
 
@@ -114,9 +115,9 @@ public class MainUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = editName.getText().toString().trim();
-                String description = editDescription.getText().toString().trim();
-                if (!TextUtils.isEmpty(description)) {
-                    updateUser(userName, description, currentUser);
+                Spinner groupName = spin<userUpdateSpinner>.getSelectedItem().toString();
+                if (!TextUtils.isEmpty(groupName)) {
+                    updateUser(userName, groupName, currentUser);
                     b.dismiss();
                 }
             }
@@ -131,9 +132,9 @@ public class MainUserActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUser(String name, String group, User currentUser) {
+    private void updateUser(String name, Spinner group, User currentUser) {
         //getting the specified product reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users").child(name);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Users").child(name);
         //updating product
 
         User user = currentUser;
@@ -156,7 +157,7 @@ public class MainUserActivity extends AppCompatActivity {
     private void addUser() {
         //getting the values to save
         String name = editName.getText().toString().trim();
-        String group = editDescription.getText().toString().trim();
+        Spinner userGroupSpinner = (Spinner) dialogView.findViewById(R.id.userGroupSpinner);
 
         //checking if the value is provided
         if (!TextUtils.isEmpty(name)) {
@@ -166,14 +167,13 @@ public class MainUserActivity extends AppCompatActivity {
             String id = databaseUsers.push().getKey();
 
             //creating an User Object
-            User user = new User(name,group,0,name+"@gmail.com",id);
+            User user = new User(name,userGroupSpinner,0,name+"@gmail.com",id);
 
             //Saving the User
             databaseUsers.child(id).setValue(user);
 
             //setting edittext to blank again
             editName.setText("");
-            editDescription.setText("");
 
             //displaying a success toast
             Toast.makeText(this, "User added", Toast.LENGTH_LONG).show();
