@@ -27,6 +27,7 @@ public class MainUserActivity extends AppCompatActivity {
 
     EditText editName;
     Spinner userGroupSpinner;
+    Spinner updateUserSpinner;
     Button buttonAddUser;
     ListView listViewUsers;
     DatabaseReference databaseUsers;
@@ -40,7 +41,7 @@ public class MainUserActivity extends AppCompatActivity {
         databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
 
         editName = (EditText) findViewById(R.id.editName);
-        userGroupSpinner = (Spinner) dialogView.findViewById(R.id.userGroupSpinner);
+        userGroupSpinner = (Spinner) findViewById(R.id.userGroupSpinner);
         listViewUsers = (ListView) findViewById(R.id.listViewUsers);
         buttonAddUser = (Button) findViewById(R.id.addButton);
 
@@ -95,7 +96,7 @@ public class MainUserActivity extends AppCompatActivity {
     }
 
 
-    private void showUpdateDeleteDialog(final String userName, Spinner userUpdateSpinner, final User currentUser) {
+    private void showUpdateDeleteDialog(final String userName, Spinner userGroupSpinner, final User currentUser) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -103,7 +104,7 @@ public class MainUserActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         final EditText editName = (EditText) dialogView.findViewById(R.id.editName);
-        final Spinner userUpdateSpinner = (Spinner) dialogView.findViewById(R.id.updateUserSpinner);
+        final Spinner userUpdateSpinner = (Spinner) findViewById(R.id.updateUserSpinner);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateUser);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteUser);
 
@@ -157,7 +158,7 @@ public class MainUserActivity extends AppCompatActivity {
     private void addUser() {
         //getting the values to save
         String name = editName.getText().toString().trim();
-        Spinner userGroupSpinner = (Spinner) dialogView.findViewById(R.id.userGroupSpinner);
+        Spinner userGroupSpinner = (Spinner) findViewById(R.id.userGroupSpinner);
 
         //checking if the value is provided
         if (!TextUtils.isEmpty(name)) {
