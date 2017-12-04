@@ -117,10 +117,8 @@ public class MainUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = editName.getText().toString().trim();
                 Spinner groupName = spin<userUpdateSpinner>.getSelectedItem().toString();
-                if (!TextUtils.isEmpty(groupName)) {
-                    updateUser(userName, groupName, currentUser);
-                    b.dismiss();
-                }
+                updateUser(userName, groupName, currentUser);
+                b.dismiss();
             }
         });
 
