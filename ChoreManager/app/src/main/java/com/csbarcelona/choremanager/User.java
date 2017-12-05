@@ -8,11 +8,11 @@ public class User {
     private int _totalPoints = 0;
     private String _id;
     private String _username;
-    private String _group;
+    private Spinner _group;
 
-    public User(String name, Spinner userGroupSpinner, int totalPoints, String username, String id) {
+    public User() {
     }
-    public User(String name, String group, int totalPoints, String username, String id) {
+    public User(String name, Spinner group, int totalPoints, String username, String id) {
         _name = name;
         _group = group;
         _id = id;
@@ -24,8 +24,8 @@ public class User {
     public String get_name() {
         return _name;
     }
-    public void set_group(String group){_group=group;}
-    public String get_group(){return _group;}
+    public void set_group(Spinner group){_group=group;}
+    public Spinner get_group(){return _group;}
     public void set_id(String id){_id = id;}
     public String get_id(){return _id;}
     public void set_totalPoints(int totalPoints){_totalPoints = totalPoints; }
