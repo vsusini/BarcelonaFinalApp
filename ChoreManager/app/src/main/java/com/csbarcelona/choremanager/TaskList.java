@@ -130,8 +130,6 @@ public class TaskList extends AppCompatActivity {
             public void onClick(View v) {
                 //Toast.makeText(TaskList.this, "Moving to user Page", Toast.LENGTH_LONG).show();
                 // Start new Activity
-
-
                 Intent myIntent = new Intent(TaskList.this, MenuActivity.class);
                 startActivity(myIntent);
 
@@ -457,30 +455,30 @@ public class TaskList extends AppCompatActivity {
             Task task = postSnapshot.getValue(Task.class);
             //add task to list
             //Beginning of the filter process.
-            if (task._status.equals("C")) { //Checking to see if a task is completed, if so, should not show.
+            if (task.get_status().equals("C")) { //Checking to see if a task is completed, if so, should not show.
                 //do nothing because we no longer want to see it.
             }else if(filterSelection.equals("Parent")){
                 if(task._group.equals("Parent")){
                     taskList.add(task);
                 }
             }else if (filterSelection.equals("Child")) {
-                if (task._group.equals("Child")) {
+                if (task.get_group().equals("Child")) {
                     taskList.add(task);
                 }
             }else if(filterSelection.equals("Ally")) {
-                if (task._assignee.equals("Ally")) {
+                if (task.get_assignee().equals("Ally")) {
                     taskList.add(task);
                 }
             }else if (filterSelection.equals("Bill")){
-                if (task._assignee.equals("Bill")){
+                if (task.get_assignee().equals("Bill")){
                     taskList.add(task);
                 }
             }else if (filterSelection.equals("Ryan")){
-                if (task._assignee.equals("Ryan")){
+                if (task.get_assignee().equals("Ryan")){
                     taskList.add(task);
                 }
             }else if (filterSelection.equals("Nancy")){
-                if (task._assignee.equals("Nancy")){
+                if (task.get_assignee().equals("Nancy")){
                     taskList.add(task);
                 }
             }else{//Will happen if All or nothing is selected.
