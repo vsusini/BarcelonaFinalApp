@@ -96,7 +96,7 @@ public class MainUserActivity extends AppCompatActivity {
     }
 
 
-    private void showUpdateDeleteDialog(final String userName, String userGroup, final User currentUser) {
+    private void showUpdateDeleteDialog(final String userName, Spinner userGroupSpinner, final User currentUser) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -116,7 +116,7 @@ public class MainUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = editName.getText().toString().trim();
-                String groupName = userUpdateSpinner.getSelectedItem().toString();
+                Spinner groupName = spin<userUpdateSpinner>.getSelectedItem().toString();
                 updateUser(userName, groupName, currentUser);
                 b.dismiss();
             }
@@ -131,7 +131,7 @@ public class MainUserActivity extends AppCompatActivity {
 //        });
     }
 
-    private void updateUser(String name, String group, User currentUser) {
+    private void updateUser(String name, Spinner group, User currentUser) {
         //getting the specified product reference
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Users").child(name);
         //updating product
@@ -144,6 +144,7 @@ public class MainUserActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "User Updated", Toast.LENGTH_LONG).show();
     }
 
+<<<<<<< HEAD
 //    private boolean deleteUser(String name) {
 //        //getting the specified product reference
 //        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users").child(name);
@@ -182,5 +183,44 @@ public class MainUserActivity extends AppCompatActivity {
 //            Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
 //        }
 //    }
+=======
+    private boolean deleteUser(String name) {
+        //getting the specified product reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users").child(name);
+        //removing product
+        dR.removeValue();
+        Toast.makeText(getApplication(), "User Deleted", Toast.LENGTH_LONG).show();
+        return true;
+    }
+
+    private void addUser() {
+        //getting the values to save
+        String name = editName.getText().toString().trim();
+        Spinner userGroupSpinner = (Spinner) findViewById(R.id.userGroupSpinner);
+
+        //checking if the value is provided
+        if (!TextUtils.isEmpty(name)) {
+
+            //getting a unique id using push().getKey() method
+            //it will create a unique id and we will use it as the Primary Key for our User
+            String id = databaseUsers.push().getKey();
+
+            //creating an User Object
+            User user = new User(name,userGroupSpinner,0,name+"@gmail.com",id);
+
+            //Saving the User
+            databaseUsers.child(id).setValue(user);
+
+            //setting edittext to blank again
+            editName.setText("");
+
+            //displaying a success toast
+            Toast.makeText(this, "User added", Toast.LENGTH_LONG).show();
+        } else {
+            //if the value is not given displaying a toast
+            Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
+        }
+    }
+>>>>>>> aa6e0c8c997c621555076e3acc4cfe9904a80d2f
 
 }
