@@ -29,11 +29,13 @@ public class UserList extends ArrayAdapter<User> {
         View listViewItem = inflater.inflate(R.layout.layout_user_list, null, true);
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-        TextView textViewDescription = (TextView) listViewItem.findViewById(R.id.textViewDescription);
+        TextView textViewGroup = (TextView) listViewItem.findViewById(R.id.textViewGroup);
+        TextView textViewPoints = (TextView)listViewItem.findViewById(R.id.textViewPoints);
 
         User user = users.get(position);
         textViewName.setText(user.get_name());
-        textViewDescription.setText(String.valueOf(user.get_group()));
+        textViewGroup.setText(String.valueOf(user.get_group()));
+        textViewPoints.setText(String.valueOf(user.get_totalPoints()));
         return listViewItem;
     }
 }

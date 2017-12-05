@@ -26,6 +26,11 @@
         <item>Ryan</item>
         <item>Ally</item>
     </string-array>
+	
+	<string-array name="user_group_array">
+        <item>Parent</item>
+        <item>Child</item>
+    </string-array>
 
     <string-array name="array_for_resource_list">
         <item>All</item>

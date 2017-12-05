@@ -43,17 +43,17 @@ public class MainUserActivity extends AppCompatActivity {
         editName = (EditText) findViewById(R.id.editName);
         userGroupSpinner = (Spinner) findViewById(R.id.userGroupSpinner);
         listViewUsers = (ListView) findViewById(R.id.listViewUsers);
-        buttonAddUser = (Button) findViewById(R.id.addButton);
+
 
         users = new ArrayList<>();
 
-        //adding an onclicklistener to button
-        buttonAddUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addUser();
-            }
-        });
+//        //adding an onclicklistener to button
+//        buttonAddUser.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addUser();
+//            }
+//        });
 
         listViewUsers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -122,13 +122,13 @@ public class MainUserActivity extends AppCompatActivity {
             }
         });
 
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteUser(userName);
-                b.dismiss();
-            }
-        });
+//        buttonDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                deleteUser(userName);
+//                b.dismiss();
+//            }
+//        });
     }
 
     private void updateUser(String name, String group, User currentUser) {
@@ -144,43 +144,43 @@ public class MainUserActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "User Updated", Toast.LENGTH_LONG).show();
     }
 
-    private boolean deleteUser(String name) {
-        //getting the specified product reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users").child(name);
-        //removing product
-        dR.removeValue();
-        Toast.makeText(getApplication(), "User Deleted", Toast.LENGTH_LONG).show();
-        return true;
-    }
+//    private boolean deleteUser(String name) {
+//        //getting the specified product reference
+//        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users").child(name);
+//        //removing product
+//        dR.removeValue();
+//        Toast.makeText(getApplication(), "User Deleted", Toast.LENGTH_LONG).show();
+//        return true;
+//    }
 
-    private void addUser() {
-        //getting the values to save
-        String name = editName.getText().toString().trim();
-        Spinner userGroupSpinner = (Spinner) findViewById(R.id.userGroupSpinner);
-        String group = userGroupSpinner.getSelectedItem().toString();
-
-        //checking if the value is provided
-        if (!TextUtils.isEmpty(name)) {
-
-            //getting a unique id using push().getKey() method
-            //it will create a unique id and we will use it as the Primary Key for our User
-            String id = databaseUsers.push().getKey();
-
-            //creating an User Object
-            User user = new User(name,group,0,name+"@gmail.com",id);
-
-            //Saving the User
-            databaseUsers.child(id).setValue(user);
-
-            //setting edittext to blank again
-            editName.setText("");
-
-            //displaying a success toast
-            Toast.makeText(this, "User added", Toast.LENGTH_LONG).show();
-        } else {
-            //if the value is not given displaying a toast
-            Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
-        }
-    }
+//    private void addUser() {
+//        //getting the values to save
+//        String name = editName.getText().toString().trim();
+//        Spinner userGroupSpinner = (Spinner) findViewById(R.id.userGroupSpinner);
+//        String group = userGroupSpinner.getSelectedItem().toString();
+//
+//        //checking if the value is provided
+//        if (!TextUtils.isEmpty(name)) {
+//
+//            //getting a unique id using push().getKey() method
+//            //it will create a unique id and we will use it as the Primary Key for our User
+//            String id = databaseUsers.push().getKey();
+//
+//            //creating an User Object
+//            User user = new User(name,group,0,name+"@gmail.com",id);
+//
+//            //Saving the User
+//            databaseUsers.child(id).setValue(user);
+//
+//            //setting edittext to blank again
+//            editName.setText("");
+//
+//            //displaying a success toast
+//            Toast.makeText(this, "User added", Toast.LENGTH_LONG).show();
+//        } else {
+//            //if the value is not given displaying a toast
+//            Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
+//        }
+//    }
 
 }

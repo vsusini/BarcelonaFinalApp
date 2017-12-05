@@ -1,42 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
     tools:context="com.csbarcelona.choremanager.UserList">
 
-    <EditText
-        android:id="@+id/editName"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter name" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/userGroupSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editName"
-        android:entries="@array/task_group_array" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="User"
+            android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/userGroupSpinner"
-        android:layout_centerHorizontal="true"
-        android:text="Add User" />
-
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addButton"
-        android:text="User                                                                               Points"
-        android:textAlignment="center" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="Points"
+            android:textAlignment="center" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listViewUsers"
