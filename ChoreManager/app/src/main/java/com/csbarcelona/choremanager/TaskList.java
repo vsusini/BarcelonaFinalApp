@@ -25,7 +25,7 @@ public class TaskList extends AppCompatActivity {
     private List<Task> taskList = new ArrayList<>();
     public static Button btnEditDueDate;
     private static String taskAssignee;
-    private static Spinner taskGroup;
+    private static String taskGroup;
     //Addition for Filter Uses - Vince
     private static String filterSelection;
     private static int filterCount = 0;
@@ -315,7 +315,7 @@ public class TaskList extends AppCompatActivity {
                 String repeat = spinRepeat.getSelectedItem().toString();
 
                 //GROUPS
-                Spinner group = getGroupFromAssignee(assignee);
+                String group = getGroupFromAssignee(assignee);
 
                 updateTask(currentTask.get_id(), assignee, resources, description,
                         duration, name, points, dueDate,
@@ -341,7 +341,7 @@ public class TaskList extends AppCompatActivity {
     }
 
     public void updateTask(String id, String assignee, String ressources,
-                           String description, int duration, final String name, int points, String dueDate, String units, String status, String repeat, Spinner group) {
+                           String description, int duration, final String name, int points, String dueDate, String units, String status, String repeat, String group) {
         //Update Task
         DatabaseReference dRT = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
         DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
@@ -433,7 +433,7 @@ public class TaskList extends AppCompatActivity {
 
 
 
-    public Spinner getGroupFromAssignee(String assignee) {
+    public String getGroupFromAssignee(String assignee) {
         final DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
 
         taskAssignee = assignee;

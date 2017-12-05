@@ -96,7 +96,7 @@ public class MainUserActivity extends AppCompatActivity {
     }
 
 
-    private void showUpdateDeleteDialog(final String userName, Spinner userGroupSpinner, final User currentUser) {
+    private void showUpdateDeleteDialog(final String userName, String userGroup, final User currentUser) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -116,7 +116,7 @@ public class MainUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = editName.getText().toString().trim();
-                Spinner groupName = spin<userUpdateSpinner>.getSelectedItem().toString();
+                String groupName = userUpdateSpinner.getSelectedItem().toString();
                 updateUser(userName, groupName, currentUser);
                 b.dismiss();
             }
@@ -131,7 +131,7 @@ public class MainUserActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUser(String name, Spinner group, User currentUser) {
+    private void updateUser(String name, String group, User currentUser) {
         //getting the specified product reference
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Users").child(name);
         //updating product
@@ -157,6 +157,7 @@ public class MainUserActivity extends AppCompatActivity {
         //getting the values to save
         String name = editName.getText().toString().trim();
         Spinner userGroupSpinner = (Spinner) findViewById(R.id.userGroupSpinner);
+        String group = userGroupSpinner.getSelectedItem().toString();
 
         //checking if the value is provided
         if (!TextUtils.isEmpty(name)) {
@@ -166,7 +167,7 @@ public class MainUserActivity extends AppCompatActivity {
             String id = databaseUsers.push().getKey();
 
             //creating an User Object
-            User user = new User(name,userGroupSpinner,0,name+"@gmail.com",id);
+            User user = new User(name,group,0,name+"@gmail.com",id);
 
             //Saving the User
             databaseUsers.child(id).setValue(user);
