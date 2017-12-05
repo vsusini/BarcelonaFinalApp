@@ -20,10 +20,10 @@ public class Task {
     String _durationUnits = "";
     String _status = "";
     String _repeat = "";
-    Spinner _group;
+    String _group;
 
     public Task(String id, String assignee, String resources, String description,
-                int duration, String name, int points, String dueDate, String _durationUnits, String status, String repeat, Spinner group ){
+                int duration, String name, int points, String dueDate, String _durationUnits, String status, String repeat, String group ){
         this._name = name;
         this._description = description;
         this._assignee = assignee;
@@ -76,10 +76,10 @@ public class Task {
     public String get_repeat(){ return  _repeat; }
     public void set_repeat(String repeat){ _repeat = repeat; }
 
-    public Spinner get_group(){ return _group; }
-    public void set_group(Spinner group){_group = group; }
+    public String get_group(){ return _group; }
+    public void set_group(String group){_group = group; }
 
-    public Task(){
+    public Task(String id, String assigned, String resources, String description, int duration, String name, int points, String dueDate, String units, String i, String repeat, String group){
 
     }
 
