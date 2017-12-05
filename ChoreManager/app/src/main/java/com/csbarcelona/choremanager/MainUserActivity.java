@@ -94,13 +94,8 @@ public class MainUserActivity extends AppCompatActivity {
             }
         });
     }
-
-
-<<<<<<< HEAD
-    private void showUpdateDeleteDialog(final String userName, String userGroupSpinner, final User currentUser) {
-=======
+    
     private void showUpdateDeleteDialog(final String userName, String userGroup, final User currentUser) {
->>>>>>> ac327ad7182532d078d0e8a23a1707f88e0ff2f2
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
