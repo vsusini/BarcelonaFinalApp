@@ -10,7 +10,6 @@
     </string-array>
 
     <string-array name="duration_array">
-        <item></item>
         <item>seconds</item>
         <item>minutes</item>
         <item>hours</item>
@@ -18,7 +17,7 @@
     </string-array>
 
     <string-array name="task_group_array">
-        <item>All</item>
+        <item>All Tasks</item>
         <item>Parent</item>
         <item>Child</item>
         <item>Nancy</item>
@@ -36,8 +35,8 @@
         <item>All</item>
         <item>Parent</item>
         <item>Child</item>
-
     </string-array>
+
 
 
 </resources>

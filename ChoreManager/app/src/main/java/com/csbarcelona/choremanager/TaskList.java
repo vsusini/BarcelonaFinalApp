@@ -118,6 +118,7 @@ public class TaskList extends AppCompatActivity {
             }
         });
 
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent taskIntent = new Intent(getApplicationContext(), NewTaskActivity.class);

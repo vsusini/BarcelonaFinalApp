@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
         mEmailField = (AutoCompleteTextView) findViewById(R.id.userEmail);
         mPasswordField = (AutoCompleteTextView) findViewById(R.id.userPassword);
 
+        //Auto login for testing only
+        //todo: remove this after testing
+        mEmailField.setText("parent@gmail.com");
+        mPasswordField.setText("password");
+
         mLoginBtn = (Button) findViewById(R.id.loginBTN);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

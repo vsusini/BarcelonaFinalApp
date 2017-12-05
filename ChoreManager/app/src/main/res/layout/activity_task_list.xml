@@ -7,17 +7,21 @@
     android:layout_height="match_parent"
     tools:context="com.csbarcelona.choremanager.TaskList">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/buttonBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnAddTask"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@color/controlBackground"
             android:layout_weight="1"
             android:text="@string/newTask" />
 
@@ -28,18 +32,11 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Filter"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-
             <Spinner
                 android:id="@+id/taskGroupSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="50dp"
+                android:background="@color/controlBackground"
                 android:entries="@array/task_group_array"
                 android:textAlignment="center"/>
         </LinearLayout>
@@ -49,26 +46,26 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/controlBackground"
             android:text="@string/menu" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/taskLayout"
         android:layout_width="match_parent"
-        android:layout_height="493dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        android:layout_height="match_parent"
+        android:layout_below="@id/buttonBar">
 
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="507dp"
+            android:layout_height="match_parent"
             android:scrollbars="vertical"
             tools:layout_editor_absoluteY="60dp"></ListView>
     </LinearLayout>
+
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
 
 
