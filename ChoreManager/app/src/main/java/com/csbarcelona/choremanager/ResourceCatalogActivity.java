@@ -27,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ResourceCatalogActivity extends AppCompatActivity {
@@ -34,16 +35,22 @@ public class ResourceCatalogActivity extends AppCompatActivity {
     EditText editTextResource;
 
     Button buttonAddResource;
+
     ListView listViewResources;
+
+    DataSnapshot resourceData;
+    DataSnapshot taskData;
 
     List<Resource> resources;
 
     DatabaseReference databaseResources;
+    DatabaseReference databaseTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseResources = FirebaseDatabase.getInstance().getReference("resources");
+        databaseTasks = FirebaseDatabase.getInstance().getReference("Tasks");
 
         setContentView(R.layout.activity_resource_catalog);
         editTextResource = (EditText) findViewById(R.id.editTextResource);
@@ -71,14 +78,76 @@ public class ResourceCatalogActivity extends AppCompatActivity {
             }
         });
 
+        //Creating on change listener for filter spinner
         Spinner spinner = (Spinner) findViewById(R.id.group_spinner);
-        ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(this,R.array.task_group_array,android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(this,R.array.array_for_resource_list,android.R.layout.simple_spinner_item);
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(filterAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                
+                try {
+                    // clearing the previous resource List
+                    resources.clear();
+                    // iterating through all the nodes
+
+                    if(i == 0) {
+                        for (DataSnapshot postSnapshot : resourceData.getChildren()) {
+                            // getting resource
+                            Resource resource = postSnapshot.getValue(Resource.class);
+                            // adding resource to the list
+                            resources.add(resource);
+                        }
+                    }
+                    else{
+                        String filter = "";
+                        if(i == 1) {
+                            filter = "Parent";
+                        }
+
+                        if(i == 2){
+                            filter = "Child";
+                        }
+
+                        List filteredResources = filterResoureByGroup(filter);
+                        for (DataSnapshot postSnapshot : resourceData.getChildren()) {
+                            // getting resource
+                            Resource resource = postSnapshot.getValue(Resource.class);
+                            // adding resource to the list
+                            if(filteredResources.contains(resource.getResourceName())) {
+                                resources.add(resource);
+                            }
+                        }
+
+                    }
+
+
+                    // creating adapter
+                    ResourceList resourcesAdapter = new ResourceList(ResourceCatalogActivity.this, resources);
+                    // attaching adapter to the listview
+                    listViewResources.setAdapter(resourcesAdapter);
+
+                }catch (Exception e){
+
+                }
+            }
+
+            private List filterResoureByGroup(String group){
+                List<String> filteredResources = new ArrayList<String>(0);
+                for (DataSnapshot postSnapshot : taskData.getChildren()) {
+                    // getting task
+                    Task task = postSnapshot.getValue(Task.class);
+                    if(task._group.equals(group)) {
+                        List<String> resources = Arrays.asList(task._resources.split("\\s*,\\s*"));
+                        //compiling all resources into one list
+                        for (Object x : resources) {
+                            if (!filteredResources.contains(x))
+                                filteredResources.add(x.toString());
+                        }
+                    }
+                }
+                return filteredResources;
             }
 
             @Override
@@ -101,7 +170,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
 
                 // clearing the previous resource List
                 resources.clear();
-
+                resourceData = dataSnapshot;
                 // iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     // getting resource
@@ -113,6 +182,18 @@ public class ResourceCatalogActivity extends AppCompatActivity {
                 ResourceList resourcesAdapter = new ResourceList(ResourceCatalogActivity.this, resources);
                 // attaching adapter to the listview
                 listViewResources.setAdapter(resourcesAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //retrieving data snapshot for tasks
+        databaseTasks.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                taskData = dataSnapshot;
             }
 
             @Override
