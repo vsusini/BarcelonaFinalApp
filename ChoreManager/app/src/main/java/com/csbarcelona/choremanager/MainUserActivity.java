@@ -108,7 +108,7 @@ public class MainUserActivity extends AppCompatActivity {
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = editName.getText().toString().trim();
+                String userName = editName.getText().toString().trim();
                 String groupName = userUpdateSpinner.getSelectedItem().toString();
                 updateUser(userName, groupName, currentUser);
                 b.dismiss();
