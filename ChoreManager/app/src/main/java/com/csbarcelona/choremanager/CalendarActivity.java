@@ -19,6 +19,8 @@ import java.util.Date;
 
 /**
  * Created by Bukola on 12/3/2017.
+ * This class provides the ability to a list of tasks
+ * based on the date selected
  */
 
 public class CalendarActivity extends AppCompatActivity {
@@ -32,6 +34,8 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         calendarView = (CalendarView) findViewById(R.id.calendarView);
 
+
+        // listens to date selected.
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
@@ -50,10 +54,13 @@ public class CalendarActivity extends AppCompatActivity {
                 String monthName = new DateFormatSymbols().getMonths()[month];
 
                 String date = sMonth + "/" + sDay + "/" + year;
+
+                // Provides ability to go to page from selected date.
                 Intent intent = new Intent(CalendarActivity.this, ScheduleTaskList.class);
-                intent.putExtra("date", date);
-                intent.putExtra("month", sMonth);
-                intent.putExtra("year", sYear);
+
+                intent.putExtra("date", date); // stores selected date
+                intent.putExtra("month", sMonth); // stores selected month
+                intent.putExtra("year", sYear); // store selected year
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Chores due in " + monthName, Toast.LENGTH_LONG).show();
             }

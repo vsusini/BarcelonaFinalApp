@@ -28,7 +28,6 @@ public class MainUserActivity extends AppCompatActivity {
     EditText editName;
     Spinner userGroupSpinner;
     Spinner updateUserSpinner;
-    Button buttonAddUser;
     ListView listViewUsers;
     DatabaseReference databaseUsers;
     List<User> users;
