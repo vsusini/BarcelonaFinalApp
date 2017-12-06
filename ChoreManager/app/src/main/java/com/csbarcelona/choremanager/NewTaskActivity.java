@@ -146,13 +146,11 @@ public class NewTaskActivity extends AppCompatActivity {
 
                 for(int i = 0; i < numberOfResources-1; i++)
                     resources += spinnerResources.get(i) + ", ";
-
-                resources = resources + spinnerResources.get(numberOfResources-1);
-
-
-
-
-
+                try{
+                    resources = resources + spinnerResources.get(numberOfResources-1);
+                }catch (Exception e){
+                    resources = "";
+                }
 
                 Spinner spinUnits = (Spinner) findViewById(R.id.duration_spinner);
                 String units = spinUnits.getSelectedItem().toString();

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.*;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,18 +40,18 @@ public class TaskList extends AppCompatActivity {
         Button btnMenu = (Button) findViewById(R.id.btnMenu);
         Button btnAdd = (Button) findViewById(R.id.btnAddTask);
         Spinner spinner = (Spinner) findViewById(R.id.taskGroupSpinner);
-        ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(this,R.array.task_group_array,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(this, R.array.task_group_array, android.R.layout.simple_spinner_item);
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(filterAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 filterSelection = (String) adapterView.getItemAtPosition(i);
-                if (filterCount == 0){
-                    Toast.makeText(getApplicationContext(),"Showing All",Toast.LENGTH_LONG).show();
+                if (filterCount == 0) {
+                    Toast.makeText(getApplicationContext(), "Showing All", Toast.LENGTH_LONG).show();
                     filterCount++;
                 } else {
-                    Toast.makeText(getApplicationContext(),"Showing "+filterSelection,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Showing " + filterSelection, Toast.LENGTH_LONG).show();
                     updateList(data);
                 }
             }
@@ -200,7 +201,7 @@ public class TaskList extends AppCompatActivity {
             }
         });
         DatabaseReference dbResource = FirebaseDatabase.getInstance().getReference();
-        MultiSpinner multiResource = (MultiSpinner)editDialog.findViewById(R.id.resource_multi_spinner_edit);
+        MultiSpinner multiResource = (MultiSpinner) editDialog.findViewById(R.id.resource_multi_spinner_edit);
         dbResource.child("resources").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -208,7 +209,7 @@ public class TaskList extends AppCompatActivity {
                 String[] selectedArray = currentTask.get_resources().split(",");
                 List<String> selectedResources = new ArrayList<>();
 
-                for(DataSnapshot areaSnapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     String rname = areaSnapshot.child("resourceName").getValue(String.class);
                     resourceNames.add(rname);
                 }
@@ -216,10 +217,10 @@ public class TaskList extends AppCompatActivity {
                 // Set Spinner with resource names from database
                 MultiSpinner multiSpinnerResource = (MultiSpinner) editDialog.findViewById(R.id.resource_multi_spinner_edit);
                 multiSpinnerResource.setItems(resourceNames);
-                for(int i = 0; i<selectedArray.length; i++){
+                for (int i = 0; i < selectedArray.length; i++) {
                     selectedResources.add(selectedArray[i].trim());
                 }
-            multiSpinnerResource.setSelected(selectedResources);
+                multiSpinnerResource.setSelected(selectedResources);
             }
 
             @Override
@@ -255,8 +256,6 @@ public class TaskList extends AppCompatActivity {
         btnEditDueDate.setText(currentTask.get_dueDate());
 
 
-
-
         final Switch switchStatus = (Switch) editDialog.findViewById(R.id.editStatus);
 
         if (currentTask.get_status().equals("C")) {
@@ -281,11 +280,11 @@ public class TaskList extends AppCompatActivity {
 
                 final String assignee = spinAssignee.getSelectedItem().toString();
                 //RESOURCES
-                MultiSpinner multiResource = (MultiSpinner)editDialog.findViewById(R.id.resource_multi_spinner_edit);
+                MultiSpinner multiResource = (MultiSpinner) editDialog.findViewById(R.id.resource_multi_spinner_edit);
                 List<String> selectedResouces = multiResource.getSelectedItems();
                 String resources = "";
-                for(int i = 0; i<selectedResouces.size(); i++){
-                    resources+=selectedResouces.get(i)+",";
+                for (int i = 0; i < selectedResouces.size(); i++) {
+                    resources += selectedResouces.get(i) + ",";
                 }
 
                 String description = txtDescription.getText().toString();
@@ -314,10 +313,14 @@ public class TaskList extends AppCompatActivity {
                 //GROUPS
                 String group = getGroupFromAssignee(assignee);
                 Log.d("STATUS ERR: ", status);
-                updateTask(currentTask.get_id(), assignee, resources, description,
+                boolean updated = updateTask(currentTask.get_id(), assignee, resources, description,
                         duration, name, points, dueDate,
                         units, status, repeat, group);
-                editDialog.dismiss();
+
+                if(updated){
+                    editDialog.dismiss();
+                }
+
             }
         });
 
@@ -337,96 +340,100 @@ public class TaskList extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Task Deleted", Toast.LENGTH_LONG).show();
     }
 
-    public void updateTask(String id, String assignee, String ressources,
+    public boolean updateTask(String id, String assignee, String ressources,
                            String description, int duration, final String name, int points, String dueDate, String units, String status, String repeat, String group) {
         //Update Task
         DatabaseReference dRT = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
         DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
 
-        Task updatedTask = new Task(id, assignee, ressources, description, duration, name, points, dueDate, units, status, repeat, group);
-        dRT.setValue(updatedTask);
+        if (!TextUtils.isEmpty(assignee) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(name) && points > 0 && duration > 0 && !dueDate.equals("NONE")){
+            Task updatedTask = new Task(id, assignee, ressources, description, duration, name, points, dueDate, units, status, repeat, group);
+            dRT.setValue(updatedTask);
 
-        if (status.equals("C")) {
-            if (!repeat.equals("None")) {
-                //If task recurring, re-create task but at next interval.
-                DatabaseReference dRT2 = FirebaseDatabase.getInstance().getReference("Tasks");
-                Calendar c = Calendar.getInstance();
-                int month = 0, day = 0, year = 0;
-                //Get Dat Format, format date for display
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                Date repeatDate = new Date();
-                try {
-                    repeatDate = df.parse(dueDate);
-                    year = repeatDate.getYear();
-                    month = repeatDate.getMonth();
-                    day = repeatDate.getDay();
-                } catch (Exception e) {
+            if (status.equals("C")) {
+                if (!repeat.equals("None")) {
+                    //If task recurring, re-create task but at next interval.
+                    DatabaseReference dRT2 = FirebaseDatabase.getInstance().getReference("Tasks");
+                    Calendar c = Calendar.getInstance();
+                    int month = 0, day = 0, year = 0;
+                    //Get Dat Format, format date for display
+                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                    Date repeatDate = new Date();
+                    try {
+                        repeatDate = df.parse(dueDate);
+                        year = repeatDate.getYear();
+                        month = repeatDate.getMonth();
+                        day = repeatDate.getDay();
+                    } catch (Exception e) {
 
+                    }
+                    //Create new instance of same task
+                    Task repeatTask = updatedTask;
+
+                    Calendar cRepeat = Calendar.getInstance();
+                    cRepeat.setTime(repeatDate);
+
+                    //Move due date accordingly
+                    if (repeat.equals("Daily")) {
+                        cRepeat.add(Calendar.DAY_OF_MONTH, 1);
+                    } else if (repeat.equals("Weekly")) {
+                        cRepeat.add(Calendar.WEEK_OF_YEAR, 1);
+                    } else if (repeat.equals("Monthly")) {
+                        cRepeat.add(Calendar.MONTH, 1);
+                    } else if (repeat.equals("Yearly")) {
+                        cRepeat.add(Calendar.YEAR, 1);
+                    }
+
+                    year = cRepeat.get(Calendar.YEAR);
+                    day = cRepeat.get(Calendar.DAY_OF_MONTH);
+                    month = cRepeat.get(Calendar.MONTH) + 1;
+
+                    String sMonth = String.valueOf(month);
+
+                    String sDay = String.valueOf(day);
+                    //For display purposes
+                    if (sMonth.length() < 2) {
+                        sMonth = "0" + (month);
+                    }
+                    if (sDay.length() < 2) {
+                        sDay = "0" + day;
+                    }
+
+                    String repeatDueDate = (sMonth + "/" + sDay + "/" + year);
+                    //Set values
+                    repeatTask.set_dueDate(repeatDueDate);
+                    String newID = dRT.push().getKey();
+                    repeatTask.set_status("I");
+                    repeatTask.setId(newID);
+
+                    dRT2.child(newID).setValue(repeatTask);
                 }
-                //Create new instance of same task
-                Task repeatTask = updatedTask;
 
-                Calendar cRepeat = Calendar.getInstance();
-                cRepeat.setTime(repeatDate);
-
-                //Move due date accordingly
-                if (repeat.equals("Daily")) {
-                    cRepeat.add(Calendar.DAY_OF_MONTH, 1);
-                } else if (repeat.equals("Weekly")) {
-                    cRepeat.add(Calendar.WEEK_OF_YEAR, 1);
-                } else if (repeat.equals("Monthly")) {
-                    cRepeat.add(Calendar.MONTH, 1);
-                } else if (repeat.equals("Yearly")) {
-                    cRepeat.add(Calendar.YEAR, 1);
+                //Update Points accordingly
+                User updatedUser = new User();
+                for (int i = 0; i < userList.size(); i++) {
+                    if (userList.get(i).get_name().equals(assignee)) {
+                        updatedUser = userList.get(i);
+                    }
                 }
 
-                year = cRepeat.get(Calendar.YEAR);
-                day = cRepeat.get(Calendar.DAY_OF_MONTH);
-                month = cRepeat.get(Calendar.MONTH) + 1;
+                updatedUser.set_totalPoints(updatedUser.get_totalPoints() + points);
+                dRU.child(updatedUser.get_id()).setValue(updatedUser);
 
-                String sMonth = String.valueOf(month);
 
-                String sDay = String.valueOf(day);
-                //For display purposes
-                if (sMonth.length() < 2) {
-                    sMonth = "0" + (month);
-                }
-                if (sDay.length() < 2) {
-                    sDay = "0" + day;
-                }
-
-                String repeatDueDate = (sMonth + "/" + sDay + "/" + year);
-                //Set values
-                repeatTask.set_dueDate(repeatDueDate);
-                String newID = dRT.push().getKey();
-                repeatTask.set_status("I");
-                repeatTask.setId(newID);
-
-                dRT2.child(newID).setValue(repeatTask);
             }
 
-            //Update Points accordingly
-            User updatedUser = new User();
-            for (int i = 0; i < userList.size(); i++) {
-                if (userList.get(i).get_name().equals(assignee)) {
-                    updatedUser = userList.get(i);
-                }
+
+            if (status.equals("I")) {
+                Toast.makeText(getApplicationContext(), "Task Updated", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Task Completed", Toast.LENGTH_LONG).show();
             }
-
-            updatedUser.set_totalPoints(updatedUser.get_totalPoints() + points);
-            dRU.child(updatedUser.get_id()).setValue(updatedUser);
-
-
+            return true;
         }
-
-
-        if (status.equals("I")) {
-            Toast.makeText(getApplicationContext(), "Task Updated", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Task Completed", Toast.LENGTH_LONG).show();
-        }
+        Toast.makeText(getApplicationContext(), "Please fill all out fields properly!", Toast.LENGTH_LONG).show();
+        return false;
     }
-
 
 
     public String getGroupFromAssignee(String assignee) {
@@ -442,7 +449,7 @@ public class TaskList extends AppCompatActivity {
         return taskGroup;
     }
 
-    public void updateList(DataSnapshot dataSnapshot){
+    public void updateList(DataSnapshot dataSnapshot) {
         //Clear List of tasks
         data = dataSnapshot;
         taskList.clear();
@@ -455,31 +462,31 @@ public class TaskList extends AppCompatActivity {
             //Beginning of the filter process.
             if (task.get_status().equals("C")) { //Checking to see if a task is completed, if so, should not show.
                 //do nothing because we no longer want to see it.
-            }else if(filterSelection.equals("Parent")){
-                if(task._group.equals("Parent")){
+            } else if (filterSelection.equals("Parent")) {
+                if (task._group.equals("Parent")) {
                     taskList.add(task);
                 }
-            }else if (filterSelection.equals("Child")) {
+            } else if (filterSelection.equals("Child")) {
                 if (task.get_group().equals("Child")) {
                     taskList.add(task);
                 }
-            }else if(filterSelection.equals("Ally")) {
+            } else if (filterSelection.equals("Ally")) {
                 if (task.get_assignee().equals("Ally")) {
                     taskList.add(task);
                 }
-            }else if (filterSelection.equals("Bill")){
-                if (task.get_assignee().equals("Bill")){
+            } else if (filterSelection.equals("Bill")) {
+                if (task.get_assignee().equals("Bill")) {
                     taskList.add(task);
                 }
-            }else if (filterSelection.equals("Ryan")){
-                if (task.get_assignee().equals("Ryan")){
+            } else if (filterSelection.equals("Ryan")) {
+                if (task.get_assignee().equals("Ryan")) {
                     taskList.add(task);
                 }
-            }else if (filterSelection.equals("Nancy")){
-                if (task.get_assignee().equals("Nancy")){
+            } else if (filterSelection.equals("Nancy")) {
+                if (task.get_assignee().equals("Nancy")) {
                     taskList.add(task);
                 }
-            }else{//Will happen if All or nothing is selected.
+            } else {//Will happen if All or nothing is selected.
                 taskList.add(task);
             }
         }
