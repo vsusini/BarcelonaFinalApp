@@ -26,12 +26,10 @@ public class TaskList extends AppCompatActivity {
     public static Button btnEditDueDate;
     private static String taskAssignee;
     private static String taskGroup;
-    //Addition for Filter Uses - Vince
     private static String filterSelection;
     private static int filterCount = 0;
     private static DataSnapshot data;
     private static List<String> resourceNames;
-    //End of it
     public static List<User> userList = new ArrayList<>();
 
     @Override
