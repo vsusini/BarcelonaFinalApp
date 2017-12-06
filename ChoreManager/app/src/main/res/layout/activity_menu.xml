@@ -73,5 +73,21 @@
                 android:text="Calendar" />
 
         </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menuLayout05"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Help" />
+    </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

@@ -29,7 +29,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainUserActivity" />
-        <activity android:name=".ScheduleTaskList"></activity>
+        <activity android:name=".ScheduleTaskList" />
+        <activity android:name=".HelpActivity"></activity>
     </application>
 
 </manifest>

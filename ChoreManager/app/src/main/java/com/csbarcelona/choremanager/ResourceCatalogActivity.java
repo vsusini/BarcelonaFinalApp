@@ -251,7 +251,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
             Toast.makeText(this, "Resource added", Toast.LENGTH_LONG).show();
         } else {
             // if the value is not given displaying a toast
-            Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter a resouce name", Toast.LENGTH_LONG).show();
         }
 
     }

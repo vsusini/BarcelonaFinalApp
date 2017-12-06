@@ -37,6 +37,29 @@
         <item>Resources Needed by Children</item>
     </string-array>
 
+    <string name = "task_paragraph">
+        Use the "New Task" button to add a New Task in the Task page\n
+        Select a task and long click to update or delete the task\n
+        Use the drop-down list on the top of the task page to filter tasks by user or user group\n
+    </string>
+
+    <string name = "resource_paragraph">
+        Add a new resource using the "Add" button \n
+        Delete a resource using by selecting and long-clicking the resource you would like to delete\n
+        Use the drop-down list on the top of the resource page to filter resource by user group\n
+    </string>
+
+    <string name = "user_paragraph">
+        Select a user and long-click to update the user\n
+    </string>
+
+    <string name = "schedule_paragraph">
+        Click on a date in the calendar page to view a list of chores due on the selected month\n
+    </string>
+
+
+
+
 
 
 </resources>

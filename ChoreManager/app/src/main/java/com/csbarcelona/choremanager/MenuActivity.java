@@ -17,8 +17,9 @@ public class MenuActivity extends Activity {
 
     Button taskBtn;
     Button resourceBtn;
-    Button usersBtn;
+    Button userBtn;
     Button calendarBtn;
+    Button helpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +71,10 @@ public class MenuActivity extends Activity {
 
 
         //L Locate the User button in the activity menu
-        usersBtn = (Button)findViewById(R.id.btn_users);
+        userBtn = (Button)findViewById(R.id.btn_users);
 
         // Capture button clicks
-        usersBtn.setOnClickListener(new View.OnClickListener() {
+        userBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -85,9 +86,24 @@ public class MenuActivity extends Activity {
 
         });
 
+
+
+        helpBtn = (Button)findViewById(R.id.btn_help);
+
+        // Capture button clicks
+        helpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Star Calendar Activty
+
+                Intent myIntent = new Intent(MenuActivity.this, HelpActivity.class);
+                startActivity(myIntent);
+            }
+
+        });
+
+
     }
-
-
-
 
 }

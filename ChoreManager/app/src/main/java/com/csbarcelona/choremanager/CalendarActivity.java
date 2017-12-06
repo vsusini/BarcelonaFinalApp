@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,12 +46,16 @@ public class CalendarActivity extends AppCompatActivity {
                     sDay = "0" + day;
                 }
 
+
+                String monthName = new DateFormatSymbols().getMonths()[month];
+
                 String date = sMonth + "/" + sDay + "/" + year;
                 Intent intent = new Intent(CalendarActivity.this, ScheduleTaskList.class);
                 intent.putExtra("date", date);
                 intent.putExtra("month", sMonth);
                 intent.putExtra("year", sYear);
                 startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Chores due in " + monthName, Toast.LENGTH_LONG).show();
             }
         });
 
