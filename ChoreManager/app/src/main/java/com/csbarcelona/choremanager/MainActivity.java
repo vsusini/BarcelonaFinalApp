@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Auto login for testing only
         //todo: remove this after testing
-        mEmailField.setText("parent@gmail.com");
-        mPasswordField.setText("password");
+        //mEmailField.setText("parent@gmail.com");
+        //mPasswordField.setText("password");
 
         mLoginBtn = (Button) findViewById(R.id.loginBTN);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {

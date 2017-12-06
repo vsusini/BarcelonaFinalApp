@@ -96,6 +96,7 @@ public class MainUserActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         final EditText editName = (EditText) dialogView.findViewById(R.id.editName);
+        databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
         final Spinner userUpdateSpinner = (Spinner) findViewById(R.id.updateUserSpinner);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateUser);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteUser);
