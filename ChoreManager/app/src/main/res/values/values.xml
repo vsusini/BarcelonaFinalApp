@@ -32,9 +32,9 @@
     </string-array>
 
     <string-array name="array_for_resource_list">
-        <item>All</item>
-        <item>Parent</item>
-        <item>Child</item>
+        <item>All Resources</item>
+        <item>Resources Needed by Parents</item>
+        <item>Resources Needed by Children</item>
     </string-array>
 
 
