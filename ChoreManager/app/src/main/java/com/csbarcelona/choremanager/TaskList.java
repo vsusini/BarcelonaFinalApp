@@ -315,7 +315,7 @@ public class TaskList extends AppCompatActivity {
 
                 //GROUPS
                 String group = getGroupFromAssignee(assignee);
-
+                Log.d("STATUS ERR: ", status);
                 updateTask(currentTask.get_id(), assignee, resources, description,
                         duration, name, points, dueDate,
                         units, status, repeat, group);
@@ -345,12 +345,11 @@ public class TaskList extends AppCompatActivity {
         DatabaseReference dRT = FirebaseDatabase.getInstance().getReference("Tasks").child(id);
         DatabaseReference dRU = FirebaseDatabase.getInstance().getReference("Users");
 
-
         Task updatedTask = new Task(id, assignee, ressources, description, duration, name, points, dueDate, units, status, repeat, group);
         dRT.setValue(updatedTask);
 
         if (status.equals("C")) {
-            if (!repeat.equals("none")) {
+            if (!repeat.equals("None")) {
                 //If task recurring, re-create task but at next interval.
                 DatabaseReference dRT2 = FirebaseDatabase.getInstance().getReference("Tasks");
                 Calendar c = Calendar.getInstance();
