@@ -81,7 +81,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                // clearing the previous artist List
+                // clearing the previous resource List
                 resources.clear();
 
                 // iterating through all the nodes

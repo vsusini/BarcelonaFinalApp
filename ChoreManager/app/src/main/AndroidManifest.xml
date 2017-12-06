@@ -28,7 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name=".MainUserActivity" />
+        <activity android:name=".MainUserActivity" />
+        <activity android:name=".ScheduleTaskList"></activity>
     </application>
 
 </manifest>

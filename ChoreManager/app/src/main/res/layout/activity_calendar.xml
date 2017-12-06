@@ -2,12 +2,49 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context="com.csbarcelona.choremanager.CalendarActivity">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="fill_parent"
-        android:layout_height="700dp" />
+
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        tools:layout_editor_absoluteY="100dp"
+        tools:ignore="MissingConstraints">
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="299dp" />
+
+    </android.support.constraint.ConstraintLayout>
+
+  <!--  <LinearLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_weekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Weekly Schedule" />
+
+        <Button
+            android:id="@+id/btn_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Daily Schedule" />
+    </LinearLayout>
+    -->
+
+
+
+
+
 </android.support.constraint.ConstraintLayout>

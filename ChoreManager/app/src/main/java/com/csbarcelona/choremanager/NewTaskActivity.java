@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -33,9 +36,13 @@ public class NewTaskActivity extends AppCompatActivity {
     DatabaseReference dbResource;
     String resourceDefaultText;
 
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+
 
 
         // Used to populate assigned users spinner with names in datebase.
@@ -77,8 +84,10 @@ public class NewTaskActivity extends AppCompatActivity {
 
                 // Set Spinner with resource names from database
                 resourceDefaultText = "";
-                MultiSpinner multiSpinnerResource = (MultiSpinner) findViewById(R.id.resource_multi_spinner);
+                final MultiSpinner multiSpinnerResource = (MultiSpinner) findViewById(R.id.resource_multi_spinner);
                multiSpinnerResource.setItems(resourceNames);
+
+
 
 
             }

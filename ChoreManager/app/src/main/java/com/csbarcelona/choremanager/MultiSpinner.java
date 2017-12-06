@@ -13,11 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Inspired but @Destil: https://stackoverflow.com/questions/5015686/android-spinner-with-multiple-choice
+ * Inspired by @Destil: https://stackoverflow.com/questions/5015686/android-spinner-with-multiple-choice
  */
 
-public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoiceClickListener{
-        //DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener {
+public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener{
 
     private List<String> items;
     private boolean[] selected;
@@ -52,8 +51,6 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
 
 
     }
-
-
     public void onCancel(DialogInterface dialog) {
         // refresh text on spinner
         StringBuffer spinnerBuffer = new StringBuffer();
@@ -100,7 +97,7 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
     }
 
 
-    /**public void setItems(List<String> items, String allText,
+    public void setItems(List<String> items, String allText,
                          MultiSpinnerListener listener) {
         this.items = items;
         this.defaultText = allText;
@@ -116,7 +113,7 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
                 android.R.layout.simple_spinner_item, new String[] { allText });
         setAdapter(adapter);
     }
-     */
+
 
 
     public void setItems(List <String> items){
@@ -146,13 +143,17 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
         }
     }
 
+    public void setDefaultText(String defaultText){
+        defaultText = defaultText;
+    }
+
+
+
     public interface MultiSpinnerListener {
         public void onItemsSelected(boolean[] selected);
     }
 
-    public void onItemsSelected(boolean[] selected){
 
-    }
 
    public String toString() {
 

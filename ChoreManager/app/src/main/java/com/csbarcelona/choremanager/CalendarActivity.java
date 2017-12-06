@@ -1,38 +1,62 @@
 package com.csbarcelona.choremanager;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.MultiTapKeyListener;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class CalendarActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener{
+/**
+ * Created by Bukola on 12/3/2017.
+ */
+
+public class CalendarActivity extends AppCompatActivity {
 
     CalendarView calendarView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        calendarView = (CalendarView) findViewById(R.id.calendarView);
 
-        calendarView = (CalendarView)findViewById(R.id.calendarView);
-        long timeNum = calendarView.getDate();
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
+                String sMonth = String.valueOf(month+1);
+                String sDay = String.valueOf(day);
+                String sYear = String.valueOf(year);
 
-        Date d = new Date();
-        d.setTime(timeNum);
-        int year, month,day = 0;
+                if (sMonth.length() < 2) {
+                    sMonth = "0" + (month+1);
+                }
+                if (sDay.length() < 2) {
+                    sDay = "0" + day;
+                }
 
-        year = d.getYear();
-        month = d.getMonth();
-        day = d.getDay();
+                String date = sMonth + "/" + sDay + "/" + year;
+                Intent intent = new Intent(CalendarActivity.this, ScheduleTaskList.class);
+                intent.putExtra("date", date);
+                intent.putExtra("month", sMonth);
+                intent.putExtra("year", sYear);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
-    @Override
-    public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int date) {
-
-    }
 }
+
+
