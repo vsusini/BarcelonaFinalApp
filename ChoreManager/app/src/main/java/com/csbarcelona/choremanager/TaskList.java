@@ -78,18 +78,18 @@ public class TaskList extends AppCompatActivity {
         });
 
         final DatabaseReference databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
-        //Load tasks from database
+        //Load users from database
         databaseUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Clear List of tasks
+                //Clear List of users
                 userList.clear();
 
                 //itterate through all tasks
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    //Get Task
+                    //Get user
                     User user = postSnapshot.getValue(User.class);
-                    //add task to list
+                    //add user to list
                     userList.add(user);
                 }
             }

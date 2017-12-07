@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -32,6 +33,7 @@ public class MainUserActivity extends AppCompatActivity {
     ListView listViewUsers;
     DatabaseReference databaseUsers;
     List<User> users;
+    private static List<Task> taskList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,27 @@ public class MainUserActivity extends AppCompatActivity {
                 User user = users.get(i);
                 showUpdateDeleteDialog(user.get_name(), user.get_group(), user);
                 return true;
+            }
+        });
+
+        DatabaseReference databaseTasks = FirebaseDatabase.getInstance().getReference("Tasks");
+        databaseTasks.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                taskList.clear();
+
+                //itterate through all tasks
+                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                    //Get Task
+                    Task task = postSnapshot.getValue(Task.class);
+                    taskList.add(task);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
@@ -96,10 +119,18 @@ public class MainUserActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         final EditText editName = (EditText) dialogView.findViewById(R.id.editName);
+        editName.setText(userName);
+
         databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
         final Spinner userUpdateSpinner = (Spinner) dialogView.findViewById(R.id.updateUserSpinner);
+        for(int i = 0; i < userUpdateSpinner.getCount(); i++){
+            if(userUpdateSpinner.getItemAtPosition(i).toString().equals(currentUser.get_group())){
+                userUpdateSpinner.setSelection(i);
+            }
+        }
+
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateUser);
-        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteUser);
+
 
         dialogBuilder.setTitle(userName);
         final AlertDialog b = dialogBuilder.create();
@@ -117,14 +148,27 @@ public class MainUserActivity extends AppCompatActivity {
     }
 
     private void updateUser(String name, String group, User currentUser) {
-        //getting the specified product reference
+        //getting the specified user reference
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Users");
-        //updating product
-
+        //updating user
+        String oldName = currentUser.get_name();
         User user = currentUser;
         user.set_name(name);
         user.set_group(group);
         dR.child(currentUser.get_id()).setValue(user);
+        Log.d("ERR_NAME", oldName);
+        //Update Tasks assigned to user
+        DatabaseReference dRT = FirebaseDatabase.getInstance().getReference("Tasks");
+
+        for(int i = 0; i<taskList.size(); i++){
+            Task task = taskList.get(i);
+            if(task.get_assignee().equals(oldName)){
+
+                task.set_assignee(name);
+                task.set_group(group);
+                dRT.child(task.get_id()).setValue(task);
+            }
+        }
 
         Toast.makeText(getApplicationContext(), "User Updated", Toast.LENGTH_LONG).show();
     }
