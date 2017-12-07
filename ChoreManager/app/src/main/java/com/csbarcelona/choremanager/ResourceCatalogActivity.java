@@ -72,7 +72,7 @@ public class ResourceCatalogActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Resource resource = resources.get(i);
-                //shows Delete diaglog
+                //showDeleteDialog(resource.getResourceName());
                 showDeleteDialog(resource.getResourceName());
                 return true;
             }

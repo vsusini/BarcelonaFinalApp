@@ -115,11 +115,11 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
     }
 
 
+
     public void setItems(List <String> items){
         this.items = items;
         selected = new boolean[items.size()];
         for(int i = 0; i <selected.length; i++) {
-            // not selected by default
             selected[i] = false;
         }
     }
@@ -143,11 +143,16 @@ public class MultiSpinner extends Spinner implements DialogInterface.OnMultiChoi
         }
     }
 
+    public void setDefaultText(String defaultText){
+        defaultText = defaultText;
+    }
+
 
 
     public interface MultiSpinnerListener {
         public void onItemsSelected(boolean[] selected);
     }
+
 
 
    public String toString() {
