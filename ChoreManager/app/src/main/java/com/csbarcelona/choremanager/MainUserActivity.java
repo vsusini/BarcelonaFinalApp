@@ -19,7 +19,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +118,7 @@ public class MainUserActivity extends AppCompatActivity {
 
     private void updateUser(String name, String group, User currentUser) {
         //getting the specified product reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Users").child(name);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Users");
         //updating product
 
         User user = currentUser;
