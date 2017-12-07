@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +97,7 @@ public class MainUserActivity extends AppCompatActivity {
 
         final EditText editName = (EditText) dialogView.findViewById(R.id.editName);
         databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
-        final Spinner userUpdateSpinner = (Spinner) findViewById(R.id.updateUserSpinner);
+        final Spinner userUpdateSpinner = (Spinner) dialogView.findViewById(R.id.updateUserSpinner);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateUser);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteUser);
 
@@ -123,11 +124,11 @@ public class MainUserActivity extends AppCompatActivity {
         User user = currentUser;
         user.set_name(name);
         user.set_group(group);
-        dR.setValue(user);
+        dR.child(currentUser.get_id()).setValue(user);
 
         Toast.makeText(getApplicationContext(), "User Updated", Toast.LENGTH_LONG).show();
     }
 
 
 
-}
+    }
