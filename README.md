@@ -1,3 +1,5 @@
-# BarcelonaFinalApp
+# Household Chore Manager
 
-testing this out and seeing what could go wrong
+Project for SEG class. 
+
+Done in Android Studio
